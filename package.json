@@ -7,8 +7,10 @@
   "author": "Michal Miškerník <michal@miskernik.sk>",
   "license": "MIT",
   "devDependencies": {
+    "@types/react": "^16.4.12",
     "docz": "^0.10.3",
     "prettier": "^1.14.2",
+    "react": "^16.4.2",
     "typescript": "^3.0.1"
   }
 }
