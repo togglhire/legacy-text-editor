@@ -7,6 +7,7 @@
   "author": "Michal Miškerník <michal@miskernik.sk>",
   "license": "MIT",
   "devDependencies": {
-    "docz": "^0.10.3"
+    "docz": "^0.10.3",
+    "typescript": "^3.0.1"
   }
 }
