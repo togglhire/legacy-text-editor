@@ -9,10 +9,17 @@
   "devDependencies": {
     "@types/react": "^16.4.12",
     "@types/react-dom": "^16.0.7",
+    "@types/slate": "^0.33.4",
+    "@types/slate-react": "^0.12.3",
     "parcel-bundler": "^1.9.7",
     "prettier": "^1.14.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "typescript": "^3.0.1"
+  },
+  "dependencies": {
+    "immutable": "^3.8.2",
+    "slate": "^0.40.2",
+    "slate-react": "^0.18.3"
   }
 }
