@@ -1,0 +1,9 @@
+{
+  "name": "@hundred5/text-editor",
+  "version": "1.0.0",
+  "description": "Text editor React component for use in Hundred5 web apps",
+  "main": "dist/index.js",
+  "repository": "https://github.com/Hundred5/text-editor",
+  "author": "Michal Miškerník <michal@miskernik.sk>",
+  "license": "MIT"
+}
