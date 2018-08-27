@@ -8,8 +8,11 @@
   "license": "MIT",
   "devDependencies": {
     "@types/react": "^16.4.12",
+    "@types/react-dom": "^16.0.7",
+    "parcel-bundler": "^1.9.7",
     "prettier": "^1.14.2",
     "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "typescript": "^3.0.1"
   }
 }
