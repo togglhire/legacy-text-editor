@@ -5,5 +5,8 @@
   "main": "dist/index.js",
   "repository": "https://github.com/Hundred5/text-editor",
   "author": "Michal Miškerník <michal@miskernik.sk>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "docz": "^0.10.3"
+  }
 }
