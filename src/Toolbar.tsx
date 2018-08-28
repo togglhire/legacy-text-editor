@@ -1,6 +1,7 @@
 import React from "react";
 import { Value, Change } from "slate";
-import { MARKS } from "markup-it";
+import { MARKS, BLOCKS } from "markup-it";
+import { codePlugin } from "./plugins/code";
 
 interface Props {
   value: Value;
@@ -33,6 +34,20 @@ export const Toolbar = ({ value, onChange }: Props) => (
     <button
       onClick={() => {
         onChange(value.change().toggleMark(MARKS.CODE));
+      }}
+    >
+      inline code
+    </button>
+    |
+    <button
+      onClick={() => {
+        onChange(
+          value
+            .change()
+            .call(change =>
+              codePlugin.changes.toggleCodeBlock(change, BLOCKS.DEFAULT)
+            )
+        );
       }}
     >
       inline code

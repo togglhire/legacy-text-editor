@@ -2,6 +2,7 @@ import * as React from "react";
 import { Value, Change } from "slate";
 import { Editor, RenderNodeProps, RenderMarkProps } from "slate-react";
 import { BLOCKS, INLINES, MARKS } from "markup-it";
+import { plugins } from "./plugins";
 
 interface Props {
   value: Value;
@@ -70,5 +71,10 @@ const renderMark = ({ mark, attributes, children }: RenderMarkProps) => {
 };
 
 export const TextEditor = ({ ...props }: Props) => (
-  <Editor renderNode={renderNode} renderMark={renderMark} {...props} />
+  <Editor
+    plugins={plugins}
+    renderNode={renderNode}
+    renderMark={renderMark}
+    {...props}
+  />
 );
