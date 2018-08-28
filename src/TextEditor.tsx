@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Editor } from "slate-react";
+import { Editor, RenderNodeProps, RenderMarkProps } from "slate-react";
 import { Value, Change } from "slate";
 
 interface Props {
@@ -15,4 +15,26 @@ interface Props {
   tabIndex?: number;
 }
 
-export const TextEditor = ({ ...props }: Props) => <Editor {...props} />;
+const renderNode = ({ node, attributes, children }: RenderNodeProps) => {
+  if (node.object === "block" || node.object === "inline") {
+    switch (node.type) {
+      case "paragraph":
+        return <p {...attributes}>{children}</p>;
+    }
+  }
+};
+
+const renderMark = ({ mark, attributes, children }: RenderMarkProps) => {
+  switch (mark.type) {
+    case "bold":
+      return <b {...attributes}>{children}</b>;
+    case "italic":
+      return <i {...attributes}>{children}</i>;
+    case "underline":
+      return <u {...attributes}>{children}</u>;
+  }
+};
+
+export const TextEditor = ({ ...props }: Props) => (
+  <Editor renderNode={renderNode} renderMark={renderMark} {...props} />
+);
