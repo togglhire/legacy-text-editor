@@ -2,6 +2,7 @@ import React from "react";
 import { Value, Change } from "slate";
 import { MARKS, BLOCKS } from "markup-it";
 import { codePlugin } from "./plugins/code";
+import { listPlugin } from "./plugins/list";
 
 interface Props {
   value: Value;
@@ -38,7 +39,7 @@ export const Toolbar = ({ value, onChange }: Props) => (
     >
       inline code
     </button>
-    |
+    {" | "}
     <button
       onClick={() => {
         onChange(
@@ -51,6 +52,25 @@ export const Toolbar = ({ value, onChange }: Props) => (
       }}
     >
       inline code
+    </button>
+    <button
+      onClick={() => {
+        if (listPlugin.utils.isSelectionInList(value)) {
+          onChange(
+            value.change().call(change => listPlugin.changes.unwrapList(change))
+          );
+        } else {
+          onChange(
+            value
+              .change()
+              .call(change =>
+                listPlugin.changes.wrapInList(change, BLOCKS.OL_LIST)
+              )
+          );
+        }
+      }}
+    >
+      ordered list
     </button>
   </React.Fragment>
 );
