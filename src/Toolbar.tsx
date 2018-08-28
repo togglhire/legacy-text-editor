@@ -1,5 +1,6 @@
-import { Value, Change } from "slate";
 import React from "react";
+import { Value, Change } from "slate";
+import { MARKS } from "markup-it";
 
 interface Props {
   value: Value;
@@ -10,24 +11,31 @@ export const Toolbar = ({ value, onChange }: Props) => (
   <React.Fragment>
     <button
       onClick={() => {
-        onChange(value.change().toggleMark("bold"));
+        onChange(value.change().toggleMark(MARKS.BOLD));
       }}
     >
       bold
     </button>
     <button
       onClick={() => {
-        onChange(value.change().toggleMark("italic"));
+        onChange(value.change().toggleMark(MARKS.ITALIC));
       }}
     >
       italic
     </button>
     <button
       onClick={() => {
-        onChange(value.change().toggleMark("underline"));
+        onChange(value.change().toggleMark(MARKS.STRIKETHROUGH));
       }}
     >
-      underline
+      strike-through
+    </button>
+    <button
+      onClick={() => {
+        onChange(value.change().toggleMark(MARKS.CODE));
+      }}
+    >
+      inline code
     </button>
   </React.Fragment>
 );

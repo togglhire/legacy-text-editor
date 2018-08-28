@@ -12,3 +12,8 @@
 .editor-content {
   min-height: 100px;
 }
+
+.editor-preview {
+  white-space: pre-wrap;
+  font-family: monospace;
+}

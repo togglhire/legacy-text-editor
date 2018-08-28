@@ -1,6 +1,11 @@
 import * as React from "react";
 import { render } from "react-dom";
-import { Toolbar, TextEditor } from "../src";
+import {
+  Toolbar,
+  TextEditor,
+  deserializeMarkdownToDocument,
+  serializeDocumentToMarkdown
+} from "../src";
 import { Value, Change } from "slate";
 
 interface State {
@@ -26,6 +31,10 @@ class App extends React.Component<{}, State> {
           value={value}
           onChange={this.handleChange}
         />
+
+        <div className="editor-preview">
+          {serializeDocumentToMarkdown(value.document)}
+        </div>
       </div>
     );
   }
@@ -35,15 +44,8 @@ class App extends React.Component<{}, State> {
   };
 }
 
-const initialValue = Value.fromJSON({
-  document: {
-    nodes: [
-      {
-        object: "block",
-        type: "paragraph"
-      }
-    ]
-  }
+const initialValue = Value.create({
+  document: deserializeMarkdownToDocument("Hello world!")
 });
 
 render(<App />, document.getElementById("app"));
