@@ -27,6 +27,7 @@
     "slate": "0.35.0",
     "slate-edit-code": "^0.15.5",
     "slate-edit-list": "^0.12.1",
-    "slate-react": "0.14.0"
+    "slate-react": "0.14.0",
+    "slate-soft-break": "^0.8.0"
   }
 }
