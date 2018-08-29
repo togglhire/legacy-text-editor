@@ -1,8 +1,9 @@
 import React from "react";
 import { Value, Change } from "slate";
-import { MARKS, BLOCKS } from "markup-it";
+import { MARKS, BLOCKS, INLINES } from "markup-it";
 import { codePlugin } from "./plugins/code";
 import { listPlugin } from "./plugins/list";
+import { linkPlugin } from "./plugins/link";
 
 interface Props {
   value: Value;
@@ -71,6 +72,17 @@ export const Toolbar = ({ value, onChange }: Props) => (
       }}
     >
       ordered list
+    </button>
+    <button
+      onClick={() => {
+        if (linkPlugin.utils.isInLink(value)) {
+          onChange(value.change().call(linkPlugin.changes.unwrapLink));
+        } else {
+          onChange(value.change().call(linkPlugin.changes.wrapInLink));
+        }
+      }}
+    >
+      link
     </button>
   </React.Fragment>
 );

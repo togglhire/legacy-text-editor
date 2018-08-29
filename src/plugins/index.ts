@@ -4,11 +4,13 @@ import { codePlugin } from "./code";
 import { listPlugin } from "./list";
 import { pastePlugin } from "./paste";
 import { hotkeyPlugin } from "./hotkeys";
+import { linkPlugin } from "./link";
 
 export const plugins: Plugin[] = [
-  basePlugin,
   codePlugin,
   listPlugin,
   pastePlugin,
-  hotkeyPlugin
+  hotkeyPlugin,
+  linkPlugin,
+  basePlugin
 ];
