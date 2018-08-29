@@ -1,5 +1,5 @@
 import * as React from "react";
-import { RenderNodeProps, RenderMarkProps } from "slate-react";
+import { RenderNodeProps, RenderMarkProps, Plugin } from "slate-react";
 import { BLOCKS, INLINES, MARKS } from "markup-it";
 
 const renderNode = ({ node, attributes, children }: RenderNodeProps) => {
@@ -55,4 +55,4 @@ const renderMark = ({ mark, attributes, children }: RenderMarkProps) => {
   }
 };
 
-export const basePlugin = { renderNode, renderMark };
+export const basePlugin: Plugin = { renderNode, renderMark };

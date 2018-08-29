@@ -8,7 +8,7 @@ interface Options {
   canMerge?: (a: Node, b: Node) => boolean;
 }
 
-interface EditListPlugin {
+interface EditListPlugin extends Plugin {
   utils: Utils;
   changes: Changes;
 }
