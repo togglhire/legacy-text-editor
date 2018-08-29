@@ -1,13 +1,19 @@
 import markdown from "markup-it/lib/markdown";
 import { State } from "markup-it";
-import { Document } from "slate";
+import { EditorState } from "./types";
+import { Value } from "slate";
 
-export const deserializeMarkdownToDocument = (source: string): Document => {
-  const state = State.create(markdown);
-  return state.deserializeToDocument(source);
+export const markdownToEditorState = (source: string): EditorState => {
+  const document = State.create(markdown).deserializeToDocument(source);
+  const value = Value.create({ document });
+
+  return { type: "rich-text", value };
 };
 
-export const serializeDocumentToMarkdown = (document: Document): string => {
-  const state = State.create(markdown);
-  return state.serializeDocument(document);
+export const editorStateToMarkdown = (state: EditorState): string => {
+  if (state.type === "rich-text") {
+    return State.create(markdown).serializeDocument(state.value.document);
+  } else {
+    return "";
+  }
 };

@@ -3,49 +3,45 @@ import { render } from "react-dom";
 import {
   Toolbar,
   TextEditor,
-  deserializeMarkdownToDocument,
-  serializeDocumentToMarkdown
+  EditorState,
+  markdownToEditorState,
+  editorStateToMarkdown
 } from "../src";
-import { Value, Change } from "slate";
 
 interface State {
-  value: Value;
+  editor: EditorState;
 }
 
 class App extends React.Component<{}, State> {
   state = {
-    value: initialValue
+    editor: initialEditorState
   };
 
   render() {
-    const { value } = this.state;
+    const { editor } = this.state;
 
     return (
       <div className="editor">
         <div className="editor-toolbar">
-          <Toolbar value={value} onChange={this.handleChange} />
+          <Toolbar state={editor} onChange={this.handleChange} />
         </div>
 
         <TextEditor
           className="editor-content"
-          value={value}
+          state={editor}
           onChange={this.handleChange}
         />
 
-        <div className="editor-preview">
-          {serializeDocumentToMarkdown(value.document)}
-        </div>
+        <div className="editor-preview">{editorStateToMarkdown(editor)}</div>
       </div>
     );
   }
 
-  handleChange = ({ value }: Change) => {
-    this.setState({ value });
+  handleChange = (editor: EditorState) => {
+    this.setState({ editor });
   };
 }
 
-const initialValue = Value.create({
-  document: deserializeMarkdownToDocument("Hello world!")
-});
+const initialEditorState = markdownToEditorState("Hello world!");
 
 render(<App />, document.getElementById("app"));

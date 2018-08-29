@@ -4,85 +4,99 @@ import { MARKS, BLOCKS, INLINES } from "markup-it";
 import { codePlugin } from "./plugins/code";
 import { listPlugin } from "./plugins/list";
 import { linkPlugin } from "./plugins/link";
+import { EditorState } from "./types";
 
-interface Props {
-  value: Value;
-  onChange: (change: Change) => any;
+interface RichTextButtonProps {
+  state: EditorState;
+  onChange: (state: EditorState) => void;
+  action: (change: Change) => Change;
+  children: React.ReactNode;
 }
 
-export const Toolbar = ({ value, onChange }: Props) => (
+const RichTextButton = ({
+  state,
+  onChange,
+  action,
+  children
+}: RichTextButtonProps) => (
+  <button
+    onClick={() => {
+      onChange({
+        type: "rich-text",
+        value: action(state.value.change()).value
+      });
+    }}
+  >
+    {children}
+  </button>
+);
+
+interface ToolbarProps {
+  state: EditorState;
+  onChange: (state: EditorState) => void;
+}
+
+export const Toolbar = ({ state, onChange }: ToolbarProps) => (
   <React.Fragment>
-    <button
-      onClick={() => {
-        onChange(value.change().toggleMark(MARKS.BOLD));
-      }}
+    <RichTextButton
+      state={state}
+      onChange={onChange}
+      action={change => change.toggleMark(MARKS.BOLD)}
     >
       bold
-    </button>
-    <button
-      onClick={() => {
-        onChange(value.change().toggleMark(MARKS.ITALIC));
-      }}
+    </RichTextButton>
+    <RichTextButton
+      state={state}
+      onChange={onChange}
+      action={change => change.toggleMark(MARKS.ITALIC)}
     >
       italic
-    </button>
-    <button
-      onClick={() => {
-        onChange(value.change().toggleMark(MARKS.STRIKETHROUGH));
-      }}
+    </RichTextButton>
+    <RichTextButton
+      state={state}
+      onChange={onChange}
+      action={change => change.toggleMark(MARKS.STRIKETHROUGH)}
     >
-      strike-through
-    </button>
-    <button
-      onClick={() => {
-        onChange(value.change().toggleMark(MARKS.CODE));
-      }}
-    >
-      inline code
-    </button>
-    {" | "}
-    <button
-      onClick={() => {
-        onChange(
-          value
-            .change()
-            .call(change =>
-              codePlugin.changes.toggleCodeBlock(change, BLOCKS.DEFAULT)
-            )
-        );
-      }}
+      strikethrough
+    </RichTextButton>
+    <RichTextButton
+      state={state}
+      onChange={onChange}
+      action={change => change.toggleMark(MARKS.CODE)}
     >
       inline code
-    </button>
-    <button
-      onClick={() => {
-        if (listPlugin.utils.isSelectionInList(value)) {
-          onChange(
-            value.change().call(change => listPlugin.changes.unwrapList(change))
-          );
-        } else {
-          onChange(
-            value
-              .change()
-              .call(change =>
-                listPlugin.changes.wrapInList(change, BLOCKS.OL_LIST)
-              )
-          );
-        }
-      }}
+    </RichTextButton>
+
+    <RichTextButton
+      state={state}
+      onChange={onChange}
+      action={change =>
+        codePlugin.changes.toggleCodeBlock(change, BLOCKS.DEFAULT)
+      }
+    >
+      block code
+    </RichTextButton>
+    <RichTextButton
+      state={state}
+      onChange={onChange}
+      action={change =>
+        listPlugin.utils.isSelectionInList(change.value)
+          ? listPlugin.changes.unwrapList(change)
+          : listPlugin.changes.wrapInList(change, BLOCKS.OL_LIST)
+      }
     >
       ordered list
-    </button>
-    <button
-      onClick={() => {
-        if (linkPlugin.utils.isInLink(value)) {
-          onChange(value.change().call(linkPlugin.changes.unwrapLink));
-        } else {
-          onChange(value.change().call(linkPlugin.changes.wrapInLink));
-        }
-      }}
+    </RichTextButton>
+    <RichTextButton
+      state={state}
+      onChange={onChange}
+      action={change =>
+        linkPlugin.utils.isInLink(change.value)
+          ? linkPlugin.changes.unwrapLink(change)
+          : linkPlugin.changes.wrapInLink(change)
+      }
     >
       link
-    </button>
+    </RichTextButton>
   </React.Fragment>
 );
