@@ -7,8 +7,10 @@ export const pastePlugin: Plugin = {
     const transfer = getEventTransfer(event);
     if (transfer.type !== "html") return;
 
+    const source: string = (transfer as any).html;
+
     const state = State.create(html);
-    const document = state.deserializeToDocument(transfer.html);
+    const document = state.deserializeToDocument(source);
 
     return change.insertFragment(document);
   }

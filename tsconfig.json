@@ -5,6 +5,10 @@
     "jsx": "react",
     "declaration": true,
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["typings/*"]
+    }
   }
 }
