@@ -1,10 +1,11 @@
 import React from "react";
-import { Value, Change } from "slate";
+import { Change } from "slate";
 import { MARKS, BLOCKS, INLINES } from "markup-it";
 import { codePlugin } from "./plugins/code";
 import { listPlugin } from "./plugins/list";
 import { linkPlugin } from "./plugins/link";
 import { EditorState } from "./types";
+import { editorStateToMarkdown, markdownToEditorState } from "./markdown";
 
 interface RichTextButtonProps {
   state: EditorState;
@@ -20,14 +21,36 @@ const RichTextButton = ({
   children
 }: RichTextButtonProps) => (
   <button
+    disabled={state.type !== "rich-text"}
     onClick={() => {
-      onChange({
-        type: "rich-text",
-        value: action(state.value.change()).value
-      });
+      if (state.type === "rich-text") {
+        onChange({
+          type: "rich-text",
+          value: action(state.value.change()).value
+        });
+      }
     }}
   >
     {children}
+  </button>
+);
+
+interface MarkdownButtonProps {
+  state: EditorState;
+  onChange: (state: EditorState) => void;
+}
+
+const MarkdownButton = ({ state, onChange }: MarkdownButtonProps) => (
+  <button
+    onClick={() => {
+      if (state.type === "rich-text") {
+        onChange({ type: "raw-markdown", value: editorStateToMarkdown(state) });
+      } else if (state.type === "raw-markdown") {
+        onChange(markdownToEditorState(state.value));
+      }
+    }}
+  >
+    markdown
   </button>
 );
 
@@ -98,5 +121,6 @@ export const Toolbar = ({ state, onChange }: ToolbarProps) => (
     >
       link
     </RichTextButton>
+    <MarkdownButton state={state} onChange={onChange} />
   </React.Fragment>
 );

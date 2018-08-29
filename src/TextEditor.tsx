@@ -1,8 +1,7 @@
 import * as React from "react";
-import { Value, Change } from "slate";
-import { Editor } from "slate-react";
-import { plugins } from "./plugins";
 import { EditorProps, EditorState } from "./types";
+import { RichTextEditor } from "./RichTextEditor";
+import { RawMarkdownEditor } from "./RawMarkdownEditor";
 
 interface Props extends EditorProps {
   state: EditorState;
@@ -11,16 +10,9 @@ interface Props extends EditorProps {
 
 export const TextEditor = ({ state, onChange, ...props }: Props) => {
   if (state.type === "rich-text") {
-    return (
-      <Editor
-        plugins={plugins}
-        value={state.value}
-        onChange={(change: Change) => {
-          onChange({ type: "rich-text", value: change.value });
-        }}
-        {...props}
-      />
-    );
+    return <RichTextEditor state={state} onChange={onChange} {...props} />;
+  } else if (state.type === "raw-markdown") {
+    return <RawMarkdownEditor state={state} onChange={onChange} {...props} />;
   } else {
     return null;
   }

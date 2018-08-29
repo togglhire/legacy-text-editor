@@ -16,4 +16,9 @@ export interface RichTextState {
   value: Value;
 }
 
-export type EditorState = RichTextState;
+export interface RawMarkdownState {
+  type: "raw-markdown";
+  value: string;
+}
+
+export type EditorState = RichTextState | RawMarkdownState;
