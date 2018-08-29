@@ -1,4 +1,4 @@
-import { Change, Value } from "slate";
+import { Change, Value, Block } from "slate";
 import { Plugin } from "slate-react";
 
 interface Options {
@@ -11,4 +11,21 @@ interface Options {
   getIndent?: (value: Value) => string;
 }
 
-export default function EditCode(options: Options): Plugin;
+interface EditCodePlugin extends Plugin {
+  utils: Utils;
+  changes: Changes;
+}
+
+interface Utils {
+  deserializeCode(text: string): Block;
+}
+
+interface Changes {
+  toggleCodeBlock(change: Change, type: string): Change;
+  wrapCodeBlockByKey(change: Change, key: string): Change;
+  wrapCodeBlock(change: Change): Change;
+  unwrapCodeBlockByKey(change: Change, key: string, type: string): Change;
+  unwrapCodeBlock(change: Change, type: string): Change;
+}
+
+export default function EditCode(options: Options): EditCodePlugin;
