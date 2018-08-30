@@ -6,6 +6,7 @@ import { pastePlugin } from "./paste";
 import { hotkeyPlugin } from "./hotkeys";
 import { linkPlugin } from "./link";
 import { softBreakPlugin } from "./break";
+import { trailingBlockPlugin } from "./trailing";
 
 export const plugins: Plugin[] = [
   codePlugin,
@@ -13,6 +14,7 @@ export const plugins: Plugin[] = [
   pastePlugin,
   hotkeyPlugin,
   softBreakPlugin,
+  trailingBlockPlugin,
   linkPlugin,
   basePlugin
 ];

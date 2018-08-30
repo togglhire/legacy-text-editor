@@ -3984,6 +3984,10 @@ slate-soft-break@^0.8.0:
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/slate-soft-break/-/slate-soft-break-0.8.0.tgz#374b671f576392d75754a30fbd45515776d9811d"
 
+slate-trailing-block@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/slate-trailing-block/-/slate-trailing-block-0.5.0.tgz#cedb4f2975f1167e0fb9d259ce1252b82f4d74ff"
+
 slate@0.35.0:
   version "0.35.0"
   resolved "https://registry.yarnpkg.com/slate/-/slate-0.35.0.tgz#6d13146b21db9aa9fdbe9323198dc25a5d334ec0"
