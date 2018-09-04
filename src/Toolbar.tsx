@@ -1,13 +1,8 @@
 import React from "react";
-import { Change } from "slate";
 import styled from "react-emotion";
-import { marks, blocks } from "./constants";
-import { codePlugin } from "./plugins/code";
-import { listPlugin } from "./plugins/list";
-import { linkPlugin } from "./plugins/link";
-import { EditorState } from "./types";
-import { editorStateToMarkdown, markdownToEditorState } from "./markdown";
+import { EditorState, RichTextState } from "./types";
 import * as icons from "./icons";
+import * as transforms from "./transforms";
 
 const IconButton = styled("button")({
   padding: 0,
@@ -23,24 +18,21 @@ const IconButton = styled("button")({
 interface RichTextButtonProps {
   state: EditorState;
   onChange: (state: EditorState) => void;
-  action: (change: Change) => Change;
+  transform: (state: RichTextState) => RichTextState;
   children: React.ReactNode;
 }
 
 const RichTextButton = ({
   state,
   onChange,
-  action,
+  transform,
   children
 }: RichTextButtonProps) => (
   <IconButton
     disabled={state.type !== "rich-text"}
     onClick={() => {
       if (state.type === "rich-text") {
-        onChange({
-          type: "rich-text",
-          value: action(state.value.change()).value
-        });
+        onChange(transform(state));
       }
     }}
   >
@@ -56,11 +48,7 @@ interface MarkdownButtonProps {
 const MarkdownButton = ({ state, onChange }: MarkdownButtonProps) => (
   <IconButton
     onClick={() => {
-      if (state.type === "rich-text") {
-        onChange({ type: "raw-markdown", value: editorStateToMarkdown(state) });
-      } else if (state.type === "raw-markdown") {
-        onChange(markdownToEditorState(state.value));
-      }
+      onChange(transforms.toggleMarkdown(state));
     }}
   >
     <icons.Markdown />
@@ -77,28 +65,28 @@ export const Toolbar = ({ state, onChange }: ToolbarProps) => (
     <RichTextButton
       state={state}
       onChange={onChange}
-      action={change => change.toggleMark(marks.bold)}
+      transform={transforms.toggleBold}
     >
       <icons.Bold />
     </RichTextButton>
     <RichTextButton
       state={state}
       onChange={onChange}
-      action={change => change.toggleMark(marks.italic)}
+      transform={transforms.toggleItalic}
     >
       <icons.Italic />
     </RichTextButton>
     <RichTextButton
       state={state}
       onChange={onChange}
-      action={change => change.toggleMark(marks.strikethrough)}
+      transform={transforms.toggleStrikethrough}
     >
       <icons.Strikethrough />
     </RichTextButton>
     <RichTextButton
       state={state}
       onChange={onChange}
-      action={change => change.toggleMark(marks.code)}
+      transform={transforms.toggleInlineCode}
     >
       <icons.InlineCode />
     </RichTextButton>
@@ -106,31 +94,28 @@ export const Toolbar = ({ state, onChange }: ToolbarProps) => (
     <RichTextButton
       state={state}
       onChange={onChange}
-      action={change =>
-        codePlugin.changes.toggleCodeBlock(change, blocks.paragraph)
-      }
+      transform={transforms.toggleBlockCode}
     >
       <icons.BlockCode />
     </RichTextButton>
     <RichTextButton
       state={state}
       onChange={onChange}
-      action={change =>
-        listPlugin.utils.isSelectionInList(change.value)
-          ? listPlugin.changes.unwrapList(change)
-          : listPlugin.changes.wrapInList(change, blocks.orderedList)
-      }
+      transform={transforms.toggleOrderedList}
     >
       <icons.NumberList />
     </RichTextButton>
     <RichTextButton
       state={state}
       onChange={onChange}
-      action={change =>
-        linkPlugin.utils.isInLink(change.value)
-          ? linkPlugin.changes.unwrapLink(change)
-          : linkPlugin.changes.wrapInLink(change)
-      }
+      transform={transforms.toggleUnorderedList}
+    >
+      <icons.BulletList />
+    </RichTextButton>
+    <RichTextButton
+      state={state}
+      onChange={onChange}
+      transform={transforms.toggleLink}
     >
       <icons.Link />
     </RichTextButton>
