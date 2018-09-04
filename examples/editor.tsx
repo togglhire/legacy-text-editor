@@ -26,11 +26,13 @@ class App extends React.Component<{}, State> {
           <Toolbar state={editor} onChange={this.handleChange} />
         </div>
 
-        <TextEditor
-          className="editor-content"
-          state={editor}
-          onChange={this.handleChange}
-        />
+        <div className="editor-content">
+          <TextEditor
+            className="editor-field"
+            state={editor}
+            onChange={this.handleChange}
+          />
+        </div>
 
         <div className="editor-preview">{editorStateToMarkdown(editor)}</div>
       </div>

@@ -3,17 +3,23 @@
 }
 
 .editor-toolbar,
-.editor-content {
+.editor-content,
+.editor-preview {
   border: 1px solid black;
   margin-bottom: 10px;
   padding: 5px;
 }
 
-.editor-toolbar > * {
-  margin-right: 5px;
+.editor-toolbar {
+  display: flex;
 }
 
-.editor-content {
+.editor-toolbar > * {
+  margin-right: 5px;
+  display: block;
+}
+
+.editor-field {
   min-height: 100px;
 }
 

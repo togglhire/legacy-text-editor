@@ -1,16 +1,38 @@
 import React from "react";
+import styled from "react-emotion";
 import { RawMarkdownState, EditorProps } from "./types";
+
+const Textarea = styled("textarea")({
+  padding: 0,
+  display: "block",
+  width: "100%",
+  maxWidth: "100%",
+  border: "none",
+  background: "transparent",
+  fontSize: "inherit",
+  fontFamily: "monospace",
+  color: "inherit",
+  outline: "none"
+});
 
 interface Props extends EditorProps {
   state: RawMarkdownState;
   onChange: (state: RawMarkdownState) => void;
 }
 
-export const RawMarkdownEditor = ({ state, onChange, ...props }: Props) => (
-  <textarea
-    value={state.value}
-    onChange={event =>
-      onChange({ type: "raw-markdown", value: event.target.value })
-    }
-  />
-);
+export const RawMarkdownEditor = (props: Props) => {
+  const { state, onChange, autoCorrect, ...rest } = props;
+
+  return (
+    <Textarea
+      value={state.value}
+      onChange={event =>
+        onChange({ type: "raw-markdown", value: event.target.value })
+      }
+      autoCorrect={
+        autoCorrect === true ? "on" : autoCorrect === false ? "off" : undefined
+      }
+      {...rest}
+    />
+  );
+};
