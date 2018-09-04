@@ -9,6 +9,10 @@
   padding: 5px;
 }
 
+.editor-toolbar > * {
+  margin-right: 5px;
+}
+
 .editor-content {
   min-height: 100px;
 }
