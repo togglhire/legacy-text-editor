@@ -1,5 +1,5 @@
 import { EditorState, RichTextState } from "./types";
-import { marks, blocks } from "./constants";
+import { marks, blocks, inlines } from "./constants";
 import { Value, Change } from "slate";
 import { codePlugin } from "./plugins/code";
 import { listPlugin } from "./plugins/list";
@@ -61,4 +61,34 @@ export const toggleMarkdown = (state: EditorState): EditorState => {
   } else {
     return state;
   }
+};
+
+const isInMark = (type: string) => (state: RichTextState): boolean => {
+  return state.value.activeMarks.some(mark => mark!.type === type);
+};
+
+const isInInline = (type: string) => (state: RichTextState): boolean => {
+  return state.value.inlines.some(inline => inline!.type === type);
+};
+
+export const isInBold = isInMark(marks.bold);
+export const isInItalic = isInMark(marks.italic);
+export const isInStrikethrough = isInMark(marks.strikethrough);
+export const isInInlineCode = isInMark(marks.code);
+export const isInLink = isInInline(inlines.link);
+
+export const isInBlockCode = (state: RichTextState): boolean => {
+  return codePlugin.utils.isInCodeBlock(state.value);
+};
+
+const isInList = (type: string) => (state: RichTextState): boolean => {
+  const list = listPlugin.utils.getCurrentList(state.value);
+  return list ? list.type === type : false;
+};
+
+export const isInOrderedList = isInList(blocks.orderedList);
+export const isInUnorderedList = isInList(blocks.unorderedList);
+
+export const isInMarkdown = (state: EditorState): boolean => {
+  return state.type === "raw-markdown";
 };
