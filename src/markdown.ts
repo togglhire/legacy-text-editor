@@ -1,18 +1,282 @@
-import markdown from "markup-it/lib/markdown";
-import { State } from "markup-it";
+import unified from "unified";
+import parse from "remark-parse";
+import stringify from "remark-stringify";
+import { Serializer, Rule } from "@hundred5/slate-unist-serializer";
 import { EditorState } from "./types";
-import { Value } from "slate";
+import { blocks, marks, inlines } from "./constants";
+
+interface Node {
+  type: string;
+  children?: Node[];
+  value?: string;
+  [attribute: string]: any;
+}
+
+const rules: Rule<Node>[] = [
+  // document
+  {
+    serialize(node, children) {
+      if (node.object === "document") {
+        return { type: "root", children };
+      }
+    },
+    deserialize(node, next) {
+      if (node.type === "root") {
+        return {
+          object: "document",
+          nodes: node.children ? next(node.children) : []
+        };
+      }
+    }
+  },
+
+  // text
+  {
+    serialize(node, children) {
+      if (node.object === "string") {
+        return { type: "text", value: node.text };
+      }
+    },
+    deserialize(node, next) {
+      if (node.type === "text" && node.value != null) {
+        return {
+          object: "text",
+          leaves: [{ object: "leaf", text: node.value }]
+        };
+      }
+    }
+  },
+
+  // paragraph
+  {
+    serialize(node, children) {
+      if (node.object === "block" && node.type === blocks.paragraph) {
+        return { type: "paragraph", children };
+      }
+    },
+    deserialize(node, next) {
+      if (node.type === "paragraph") {
+        return {
+          object: "block",
+          type: blocks.paragraph,
+          nodes: node.children ? next(node.children) : []
+        };
+      }
+    }
+  },
+
+  // code
+  {
+    serialize(node, children) {
+      if (node.object === "block" && node.type === blocks.code) {
+        return {
+          type: "code",
+          lang: null,
+          meta: null,
+          value: children
+            .map(child => child.value)
+            .filter((text): text is string => text != null)
+            .join("\n")
+        };
+      }
+
+      if (node.object === "block" && node.type === blocks.codeLine) {
+        return {
+          type: "codeLine",
+          value: children
+            .map(child => child.value)
+            .filter((text): text is string => text != null)
+            .join("")
+        };
+      }
+    },
+    deserialize(node, next) {
+      if (node.type === "code" && node.value != null) {
+        const lines = node.value.split("\n");
+
+        return {
+          object: "block",
+          type: blocks.code,
+          nodes: lines.map(text => ({
+            object: "block",
+            type: blocks.codeLine,
+            nodes: [{ object: "text", leaves: [{ object: "leaf", text }] }]
+          }))
+        };
+      }
+    }
+  },
+
+  // list
+  {
+    serialize(node, children) {
+      if (
+        node.object === "block" &&
+        (node.type === blocks.orderedList || node.type === blocks.unorderedList)
+      ) {
+        return {
+          type: "list",
+          ordered: node.type === blocks.orderedList,
+          start: node.type === blocks.orderedList ? 1 : undefined,
+          children
+        };
+      }
+
+      if (node.object === "block" && node.type === blocks.listItem) {
+        return { type: "listItem", children };
+      }
+    },
+    deserialize(node, next) {
+      if (node.type === "list") {
+        return {
+          object: "block",
+          type: node.ordered ? blocks.orderedList : blocks.unorderedList,
+          nodes: node.children ? next(node.children) : []
+        };
+      }
+
+      if (node.type === "listItem") {
+        return {
+          object: "block",
+          type: blocks.listItem,
+          nodes: node.children ? next(node.children) : []
+        };
+      }
+    }
+  },
+
+  // link
+  {
+    serialize(node, children) {
+      if (node.object === "inline" && node.type === inlines.link) {
+        return {
+          type: "link",
+          url: node.data.get("href"),
+          title: node.data.get("title"),
+          children
+        };
+      }
+    },
+    deserialize(node, next) {
+      if (node.type === "link") {
+        return {
+          object: "inline",
+          type: inlines.link,
+          data: {
+            href: node.url,
+            title: node.title
+          },
+          nodes: node.children ? next(node.children) : []
+        };
+      }
+    }
+  },
+
+  // image
+  {
+    serialize(node) {
+      if (node.object === "inline" && node.type === inlines.image) {
+        return {
+          type: "image",
+          url: node.data.get("src"),
+          title: node.data.get("title"),
+          alt: node.data.get("alt")
+        };
+      }
+    },
+    deserialize(node) {
+      if (node.type === "image") {
+        return {
+          object: "inline",
+          type: inlines.image,
+          isVoid: true,
+          data: {
+            src: node.url,
+            title: node.title,
+            alt: node.alt
+          }
+        };
+      }
+    }
+  },
+
+  // marks
+  {
+    serialize(node, children) {
+      if (node.object !== "mark") return;
+
+      switch (node.type) {
+        case marks.bold:
+          return { type: "strong", children };
+        case marks.italic:
+          return { type: "emphasis", children };
+        case marks.code:
+          return { type: "inlineCode", children };
+        case marks.strikethrough:
+          return { type: "delete", children };
+      }
+    },
+    deserialize(node, next) {
+      if (node.children == null) return;
+
+      switch (node.type) {
+        case "strong":
+          return {
+            object: "mark",
+            type: marks.bold,
+            nodes: next(node.children)
+          };
+        case "emphasis":
+          return {
+            object: "mark",
+            type: marks.italic,
+            nodes: next(node.children)
+          };
+        case "inlineCode":
+          return {
+            object: "mark",
+            type: marks.code,
+            nodes: next(node.children)
+          };
+        case "delete":
+          return {
+            object: "mark",
+            type: marks.strikethrough,
+            nodes: next(node.children)
+          };
+      }
+    }
+  },
+
+  // ignore uknown nodes
+  {
+    serialize() {
+      return null;
+    },
+    deserialize() {
+      return null;
+    }
+  }
+];
+
+const serializer = new Serializer({ rules });
+const processor = unified()
+  .use(parse)
+  .use(stringify);
 
 export const markdownToEditorState = (source: string): EditorState => {
-  const document = State.create(markdown).deserializeToDocument(source);
-  const value = Value.create({ document });
+  const tree = processor.parse(source);
+  const value = serializer.deserialize(tree);
 
   return { type: "rich-text", value };
 };
 
 export const editorStateToMarkdown = (state: EditorState): string => {
   if (state.type === "rich-text") {
-    return State.create(markdown).serializeDocument(state.value.document);
+    const tree = serializer.serialize(state.value);
+    const source = processor.stringify(tree);
+
+    return source;
   } else if (state.type === "raw-markdown") {
     return state.value;
   } else {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Change } from "slate";
-import { MARKS, BLOCKS, INLINES } from "markup-it";
+import { marks, blocks } from "./constants";
 import { codePlugin } from "./plugins/code";
 import { listPlugin } from "./plugins/list";
 import { linkPlugin } from "./plugins/link";
@@ -64,28 +64,28 @@ export const Toolbar = ({ state, onChange }: ToolbarProps) => (
     <RichTextButton
       state={state}
       onChange={onChange}
-      action={change => change.toggleMark(MARKS.BOLD)}
+      action={change => change.toggleMark(marks.bold)}
     >
       bold
     </RichTextButton>
     <RichTextButton
       state={state}
       onChange={onChange}
-      action={change => change.toggleMark(MARKS.ITALIC)}
+      action={change => change.toggleMark(marks.italic)}
     >
       italic
     </RichTextButton>
     <RichTextButton
       state={state}
       onChange={onChange}
-      action={change => change.toggleMark(MARKS.STRIKETHROUGH)}
+      action={change => change.toggleMark(marks.strikethrough)}
     >
       strikethrough
     </RichTextButton>
     <RichTextButton
       state={state}
       onChange={onChange}
-      action={change => change.toggleMark(MARKS.CODE)}
+      action={change => change.toggleMark(marks.code)}
     >
       inline code
     </RichTextButton>
@@ -94,7 +94,7 @@ export const Toolbar = ({ state, onChange }: ToolbarProps) => (
       state={state}
       onChange={onChange}
       action={change =>
-        codePlugin.changes.toggleCodeBlock(change, BLOCKS.DEFAULT)
+        codePlugin.changes.toggleCodeBlock(change, blocks.paragraph)
       }
     >
       block code
@@ -105,7 +105,7 @@ export const Toolbar = ({ state, onChange }: ToolbarProps) => (
       action={change =>
         listPlugin.utils.isSelectionInList(change.value)
           ? listPlugin.changes.unwrapList(change)
-          : listPlugin.changes.wrapInList(change, BLOCKS.OL_LIST)
+          : listPlugin.changes.wrapInList(change, blocks.orderedList)
       }
     >
       ordered list

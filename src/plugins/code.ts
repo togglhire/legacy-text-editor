@@ -1,8 +1,8 @@
 import EditCode from "slate-edit-code";
-import { BLOCKS } from "markup-it";
+import { blocks } from "../constants";
 
 export const codePlugin = EditCode({
-  containerType: BLOCKS.CODE,
-  lineType: BLOCKS.CODE_LINE,
-  exitBlockType: BLOCKS.DEFAULT
+  containerType: blocks.code,
+  lineType: blocks.codeLine,
+  exitBlockType: blocks.paragraph
 });

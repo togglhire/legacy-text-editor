@@ -1,8 +1,8 @@
 import EditList from "slate-edit-list";
-import { BLOCKS } from "markup-it";
+import { blocks } from "../constants";
 
 export const listPlugin = EditList({
-  types: [BLOCKS.OL_LIST, BLOCKS.UL_LIST],
-  typeItem: BLOCKS.LIST_ITEM,
-  typeDefault: BLOCKS.DEFAULT
+  types: [blocks.orderedList, blocks.unorderedList],
+  typeItem: blocks.listItem,
+  typeDefault: blocks.paragraph
 });

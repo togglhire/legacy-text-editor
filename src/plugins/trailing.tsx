@@ -1,6 +1,6 @@
 import TrailingBlock from "slate-trailing-block";
-import { BLOCKS } from "markup-it";
+import { blocks } from "../constants";
 
 export const trailingBlockPlugin = TrailingBlock({
-  type: BLOCKS.DEFAULT
+  type: blocks.paragraph
 });

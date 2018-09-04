@@ -42,6 +42,14 @@ class App extends React.Component<{}, State> {
   };
 }
 
-const initialEditorState = markdownToEditorState("Hello world!");
+const initialEditorState = markdownToEditorState(
+  [
+    "_Hello_ ~~word~~ **world**!",
+    "    Some code",
+    "* A list\n* Woo",
+    "[Some link](http://example.com)",
+    "![An image](https://via.placeholder.com/350x150)"
+  ].join("\n\n")
+);
 
 render(<App />, document.getElementById("app"));

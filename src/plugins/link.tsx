@@ -1,7 +1,7 @@
 import * as React from "react";
 import { RenderAttributes, Editor, RenderNodeProps, Plugin } from "slate-react";
 import { Node, Inline, Change, Value } from "slate";
-import { INLINES } from "markup-it";
+import { inlines } from "../constants";
 import isUrl from "is-url";
 
 interface Props {
@@ -23,7 +23,7 @@ const Link = ({ attributes, node, editor, children }: Props) => (
 
       editor.change(change =>
         change.setNodeByKey(node.key, {
-          type: INLINES.LINK,
+          type: inlines.link,
           data: { href }
         })
       );
@@ -35,7 +35,7 @@ const Link = ({ attributes, node, editor, children }: Props) => (
 );
 
 const renderNode = (props: RenderNodeProps) => {
-  if (props.node.object === "inline" && props.node.type === INLINES.LINK) {
+  if (props.node.object === "inline" && props.node.type === inlines.link) {
     return <Link {...props} node={props.node} />;
   }
 };
@@ -58,7 +58,7 @@ const isInLink = (value: Value): boolean => {
   return (
     value.document.getClosest(
       value.selection.startKey,
-      node => node.object === "inline" && node.type === INLINES.LINK
+      node => node.object === "inline" && node.type === inlines.link
     ) != null
   );
 };
@@ -67,11 +67,11 @@ const wrapInLink = (change: Change): Change => {
   const href = promptForUrl();
   if (href == null) return change;
 
-  return change.wrapInline({ type: INLINES.LINK, data: { href } });
+  return change.wrapInline({ type: inlines.link, data: { href } });
 };
 
 const unwrapLink = (change: Change): Change => {
-  return change.unwrapInline(INLINES.LINK);
+  return change.unwrapInline(inlines.link);
 };
 
 interface Utils {

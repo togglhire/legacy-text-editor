@@ -1,25 +1,25 @@
 import * as React from "react";
 import { RenderNodeProps, RenderMarkProps, Plugin } from "slate-react";
-import { BLOCKS, INLINES, MARKS } from "markup-it";
+import { blocks, inlines, marks } from "../constants";
 
 const renderNode = ({ node, attributes, children }: RenderNodeProps) => {
   if (node.object === "block" || node.object === "inline") {
     switch (node.type) {
-      case BLOCKS.PARAGRAPH:
+      case blocks.paragraph:
         return <p {...attributes}>{children}</p>;
-      case BLOCKS.CODE:
+      case blocks.code:
         return (
           <pre>
             <code {...attributes}>{children}</code>
           </pre>
         );
-      case BLOCKS.OL_LIST:
+      case blocks.orderedList:
         return <ol {...attributes}>{children}</ol>;
-      case BLOCKS.UL_LIST:
+      case blocks.unorderedList:
         return <ul {...attributes}>{children}</ul>;
-      case BLOCKS.LIST_ITEM:
+      case blocks.listItem:
         return <li {...attributes}>{children}</li>;
-      case INLINES.LINK:
+      case inlines.link:
         return (
           <a
             href={node.data.get("href")}
@@ -29,7 +29,7 @@ const renderNode = ({ node, attributes, children }: RenderNodeProps) => {
             {children}
           </a>
         );
-      case INLINES.IMAGE:
+      case inlines.image:
         return (
           <img
             src={node.data.get("src")}
@@ -44,13 +44,13 @@ const renderNode = ({ node, attributes, children }: RenderNodeProps) => {
 
 const renderMark = ({ mark, attributes, children }: RenderMarkProps) => {
   switch (mark.type) {
-    case MARKS.BOLD:
+    case marks.bold:
       return <b {...attributes}>{children}</b>;
-    case MARKS.ITALIC:
+    case marks.italic:
       return <i {...attributes}>{children}</i>;
-    case MARKS.STRIKETHROUGH:
+    case marks.strikethrough:
       return <s {...attributes}>{children}</s>;
-    case MARKS.CODE:
+    case marks.code:
       return <code {...attributes}>{children}</code>;
   }
 };
