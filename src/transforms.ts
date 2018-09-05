@@ -1,7 +1,7 @@
 import { EditorState, RichTextState } from "./types";
 import { marks, blocks, inlines } from "./constants";
 import { Value, Change } from "slate";
-import { codePlugin } from "./plugins/code";
+import { blockCodePlugin } from "./plugins/blockCode";
 import { listPlugin } from "./plugins/list";
 import { linkPlugin } from "./plugins/link";
 import { editorStateToMarkdown, markdownToEditorState } from "./markdown";
@@ -26,7 +26,7 @@ export const toggleStrikethrough = toggleMark(marks.strikethrough);
 
 export const toggleBlockCode = (state: RichTextState): RichTextState => {
   return changeRichTextState(state, change =>
-    codePlugin.changes.toggleCodeBlock(change, blocks.paragraph)
+    blockCodePlugin.changes.toggleCodeBlock(change, blocks.paragraph)
   );
 };
 
@@ -88,7 +88,7 @@ export const isInInlineCode = isInInline(inlines.code);
 export const isInLink = isInInline(inlines.link);
 
 export const isInBlockCode = (state: RichTextState): boolean => {
-  return codePlugin.utils.isInCodeBlock(state.value);
+  return blockCodePlugin.utils.isInCodeBlock(state.value);
 };
 
 const isInList = (type: string) => (state: RichTextState): boolean => {
