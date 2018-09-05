@@ -2,6 +2,15 @@ import { Plugin } from "slate-react";
 import { Schema, Value, Change } from "slate";
 import { inlines } from "../constants";
 
+const schema = Schema.create({
+  inlines: {
+    [inlines.code]: {
+      nodes: [{ objects: ["text"] }]
+      marks: []
+    }
+  }
+});
+
 const isInCode = (value: Value): boolean => {
   return value.inlines.some(inline => inline!.type === inlines.code);
 };
@@ -29,6 +38,7 @@ interface InlineCodePlugin extends Plugin {
 }
 
 export const inlineCodePlugin: InlineCodePlugin = {
+  schema,
   utils: { isInCode },
   changes: { wrapInCode, unwrapCode }
 };
