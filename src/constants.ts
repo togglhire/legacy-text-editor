@@ -1,6 +1,6 @@
 export const blocks = {
   paragraph: "paragraph",
-  code: "code",
+  code: "block-code",
   codeLine: "code-line",
   orderedList: "ol-list",
   unorderedList: "ul-list",
@@ -9,12 +9,12 @@ export const blocks = {
 
 export const inlines = {
   link: "link",
-  image: "image"
+  image: "image",
+  code: "inline-code"
 };
 
 export const marks = {
   bold: "bold",
   italic: "italic",
-  strikethrough: "strikethrough",
-  code: "code"
+  strikethrough: "strikethrough"
 };

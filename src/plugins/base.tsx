@@ -38,6 +38,8 @@ const renderNode = ({ node, attributes, children }: RenderNodeProps) => {
             {...attributes}
           />
         );
+      case inlines.code:
+        return <code {...attributes}>{children}</code>;
     }
   }
 };
@@ -50,8 +52,6 @@ const renderMark = ({ mark, attributes, children }: RenderMarkProps) => {
       return <i {...attributes}>{children}</i>;
     case marks.strikethrough:
       return <s {...attributes}>{children}</s>;
-    case marks.code:
-      return <code {...attributes}>{children}</code>;
   }
 };
 

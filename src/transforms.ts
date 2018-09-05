@@ -5,6 +5,7 @@ import { codePlugin } from "./plugins/code";
 import { listPlugin } from "./plugins/list";
 import { linkPlugin } from "./plugins/link";
 import { editorStateToMarkdown, markdownToEditorState } from "./markdown";
+import { inlineCodePlugin } from "./plugins/inlineCode";
 
 const changeRichTextState = (
   state: RichTextState,
@@ -22,7 +23,6 @@ const toggleMark = (mark: string) => (state: RichTextState): RichTextState => {
 export const toggleBold = toggleMark(marks.bold);
 export const toggleItalic = toggleMark(marks.italic);
 export const toggleStrikethrough = toggleMark(marks.strikethrough);
-export const toggleInlineCode = toggleMark(marks.code);
 
 export const toggleBlockCode = (state: RichTextState): RichTextState => {
   return changeRichTextState(state, change =>
@@ -53,6 +53,16 @@ export const toggleLink = (state: RichTextState): RichTextState => {
   });
 };
 
+export const toggleInlineCode = (state: RichTextState): RichTextState => {
+  return changeRichTextState(state, change => {
+    if (inlineCodePlugin.utils.isInCode(change.value)) {
+      return inlineCodePlugin.changes.unwrapCode(change);
+    } else {
+      return inlineCodePlugin.changes.wrapInCode(change);
+    }
+  });
+};
+
 export const toggleMarkdown = (state: EditorState): EditorState => {
   if (state.type === "rich-text") {
     return { type: "raw-markdown", value: editorStateToMarkdown(state) };
@@ -74,7 +84,7 @@ const isInInline = (type: string) => (state: RichTextState): boolean => {
 export const isInBold = isInMark(marks.bold);
 export const isInItalic = isInMark(marks.italic);
 export const isInStrikethrough = isInMark(marks.strikethrough);
-export const isInInlineCode = isInMark(marks.code);
+export const isInInlineCode = isInInline(inlines.code);
 export const isInLink = isInInline(inlines.link);
 
 export const isInBlockCode = (state: RichTextState): boolean => {

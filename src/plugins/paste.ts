@@ -12,8 +12,7 @@ const blockTags = {
 const markTags = {
   strong: marks.bold,
   em: marks.italic,
-  s: marks.strikethrough,
-  code: marks.code
+  s: marks.strikethrough
 };
 
 const rules = [
@@ -89,6 +88,22 @@ const rules = [
             href: el.getAttribute("href"),
             title: el.getAttribute("title")
           }
+        };
+      }
+    }
+  },
+  {
+    deserialize(el, next) {
+      if (el.tagName.toLowerCase() == "code") {
+        return {
+          object: "inline",
+          type: inlines.code,
+          nodes: [
+            {
+              object: "text",
+              leaves: [{ object: "leaf", text: el.textContent }]
+            }
+          ]
         };
       }
     }

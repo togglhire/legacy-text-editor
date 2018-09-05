@@ -65,7 +65,7 @@ const rules: Rule<Node>[] = [
     }
   },
 
-  // code
+  // block code
   {
     serialize(node, children) {
       if (node.object === "block" && node.type === blocks.code) {
@@ -102,6 +102,26 @@ const rules: Rule<Node>[] = [
             type: blocks.codeLine,
             nodes: [{ object: "text", leaves: [{ object: "leaf", text }] }]
           }))
+        };
+      }
+    }
+  },
+
+  // inline code
+  {
+    serialize(node, children) {
+      if (node.object === "inline" && node.type === inlines.code) {
+        return { type: "inlineCode", value: node.text };
+      }
+    },
+    deserialize(node, next) {
+      if (node.type === "inlineCode" && node.value != null) {
+        return {
+          object: "inline",
+          type: inlines.code,
+          nodes: [
+            { object: "text", leaves: [{ object: "leaf", text: node.value }] }
+          ]
         };
       }
     }
@@ -210,8 +230,6 @@ const rules: Rule<Node>[] = [
           return { type: "strong", children };
         case marks.italic:
           return { type: "emphasis", children };
-        case marks.code:
-          return { type: "inlineCode", children };
         case marks.strikethrough:
           return { type: "delete", children };
       }
@@ -230,12 +248,6 @@ const rules: Rule<Node>[] = [
           return {
             object: "mark",
             type: marks.italic,
-            nodes: next(node.children)
-          };
-        case "inlineCode":
-          return {
-            object: "mark",
-            type: marks.code,
             nodes: next(node.children)
           };
         case "delete":

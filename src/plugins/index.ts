@@ -7,9 +7,11 @@ import { hotkeyPlugin } from "./hotkeys";
 import { linkPlugin } from "./link";
 import { softBreakPlugin } from "./break";
 import { trailingBlockPlugin } from "./trailing";
+import { inlineCodePlugin } from "./inlineCode";
 
 export const plugins: Plugin[] = [
   codePlugin,
+  inlineCodePlugin,
   listPlugin,
   pastePlugin,
   hotkeyPlugin,
