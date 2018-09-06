@@ -1,5 +1,3 @@
-import { Value } from "slate";
-
 export interface EditorProps {
   autoCorrect?: boolean;
   autoFocus?: boolean;
@@ -10,15 +8,3 @@ export interface EditorProps {
   spellCheck?: boolean;
   tabIndex?: number;
 }
-
-export interface RichTextState {
-  type: "rich-text";
-  value: Value;
-}
-
-export interface RawMarkdownState {
-  type: "raw-markdown";
-  value: string;
-}
-
-export type EditorState = RichTextState | RawMarkdownState;

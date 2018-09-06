@@ -2,8 +2,8 @@ import unified from "unified";
 import parse from "remark-parse";
 import stringify from "remark-stringify";
 import { Serializer, Rule } from "@hundred5/slate-unist-serializer";
-import { EditorState } from "./types";
 import { blocks, marks, inlines } from "./constants";
+import { EditorState, createRichTextState } from "./state";
 
 interface Node {
   type: string;
@@ -284,8 +284,7 @@ const processor = unified()
 export const markdownToEditorState = (source: string): EditorState => {
   const tree = processor.parse(source);
   const value = serializer.deserialize(tree);
-
-  return { type: "rich-text", value };
+  return createRichTextState(value);
 };
 
 export const editorStateToMarkdown = (state: EditorState): string => {

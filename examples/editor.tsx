@@ -4,6 +4,8 @@ import {
   Toolbar,
   TextEditor,
   EditorState,
+  insertUpload,
+  replaceUpload,
   markdownToEditorState,
   editorStateToMarkdown
 } from "../src";
@@ -23,7 +25,11 @@ class App extends React.Component<{}, State> {
     return (
       <div className="editor">
         <div className="editor-toolbar">
-          <Toolbar state={editor} onChange={this.handleChange} />
+          <Toolbar
+            state={editor}
+            onChange={this.handleChange}
+            onInsertImage={this.insertImage}
+          />
         </div>
 
         <div className="editor-content">
@@ -39,10 +45,28 @@ class App extends React.Component<{}, State> {
     );
   }
 
+  insertImage = () => {
+    const query = Math.floor(Math.random() * 1000).toString();
+    const url = "https://placeimg.com/640/480/any?" + query;
+    const id = (nextId++).toString();
+
+    this.setState(state => ({
+      editor: insertUpload(state.editor, id)
+    }));
+
+    setTimeout(() => {
+      this.setState(state => ({
+        editor: replaceUpload(state.editor, id, url)
+      }));
+    }, 1000);
+  };
+
   handleChange = (editor: EditorState) => {
     this.setState({ editor });
   };
 }
+
+let nextId = 1;
 
 const initialEditorState = markdownToEditorState(
   [

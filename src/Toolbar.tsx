@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "react-emotion";
-import { EditorState, RichTextState } from "./types";
+import { EditorState, RichTextState } from "./state";
 import * as icons from "./icons";
 import * as transforms from "./transforms";
 
@@ -54,18 +54,16 @@ const RichTextButton = ({
 
 interface ImageButtonProps {
   state: EditorState;
-  onChange: (state: EditorState) => void;
+  onClick: () => void;
   children: React.ReactNode;
 }
 
-const ImageButton = ({ state, onChange, children }: ImageButtonProps) => (
+const ImageButton = ({ state, onClick, children }: ImageButtonProps) => (
   <IconButton
     active={false}
     disabled={state.type !== "rich-text"}
     onClick={() => {
-      if (state.type === "rich-text") {
-        transforms.insertImage(state).then(onChange);
-      }
+      onClick();
     }}
   >
     {children}
@@ -92,9 +90,10 @@ const MarkdownButton = ({ state, onChange, children }: MarkdownButtonProps) => (
 interface ToolbarProps {
   state: EditorState;
   onChange: (state: EditorState) => void;
+  onInsertImage: () => void;
 }
 
-export const Toolbar = ({ state, onChange }: ToolbarProps) => (
+export const Toolbar = ({ state, onChange, onInsertImage }: ToolbarProps) => (
   <React.Fragment>
     <RichTextButton
       state={state}
@@ -161,7 +160,7 @@ export const Toolbar = ({ state, onChange }: ToolbarProps) => (
     >
       <icons.Link />
     </RichTextButton>
-    <ImageButton state={state} onChange={onChange}>
+    <ImageButton state={state} onClick={onInsertImage}>
       <icons.Image />
     </ImageButton>
     <MarkdownButton state={state} onChange={onChange}>

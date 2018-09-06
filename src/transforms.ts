@@ -1,4 +1,4 @@
-import { EditorState, RichTextState } from "./types";
+import { EditorState, RichTextState } from "./state";
 import { marks, blocks, inlines } from "./constants";
 import { Value, Change } from "slate";
 import { blockCodePlugin } from "./plugins/blockCode";
@@ -7,6 +7,7 @@ import { linkPlugin } from "./plugins/link";
 import { editorStateToMarkdown, markdownToEditorState } from "./markdown";
 import { inlineCodePlugin } from "./plugins/inlineCode";
 import { imagePlugin } from "./plugins/image";
+import { createRawMarkdownState } from "./state";
 
 const changeRichTextState = (
   state: RichTextState,
@@ -64,20 +65,37 @@ export const toggleInlineCode = (state: RichTextState): RichTextState => {
   });
 };
 
-export const insertImage = async (
-  state: RichTextState
-): Promise<RichTextState> => {
-  const files = await imagePlugin.utils.selectImages();
-  const images = imagePlugin.utils.uploadImages(files);
-
+export const insertImage = (
+  state: RichTextState,
+  url: string
+): RichTextState => {
   return changeRichTextState(state, change => {
-    return imagePlugin.changes.insertImages(change, images);
+    return imagePlugin.changes.insertImage(change, url);
+  });
+};
+
+export const insertUpload = (
+  state: RichTextState,
+  id: string
+): RichTextState => {
+  return changeRichTextState(state, change => {
+    return imagePlugin.changes.insertUpload(change, id);
+  });
+};
+
+export const replaceUpload = (
+  state: RichTextState,
+  id: string,
+  url: string
+): RichTextState => {
+  return changeRichTextState(state, change => {
+    return imagePlugin.changes.replaceUpload(change, id, url);
   });
 };
 
 export const toggleMarkdown = (state: EditorState): EditorState => {
   if (state.type === "rich-text") {
-    return { type: "raw-markdown", value: editorStateToMarkdown(state) };
+    return createRawMarkdownState(editorStateToMarkdown(state));
   } else if (state.type === "raw-markdown") {
     return markdownToEditorState(state.value);
   } else {

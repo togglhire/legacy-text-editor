@@ -5,7 +5,7 @@ import { inlines } from "../constants";
 const schema = Schema.create({
   inlines: {
     [inlines.code]: {
-      nodes: [{ objects: ["text"] }]
+      nodes: [{ objects: ["text"] }],
       marks: []
     }
   }
