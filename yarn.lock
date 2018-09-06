@@ -67,9 +67,9 @@
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/@emotion/utils/-/utils-0.8.1.tgz#f3a81587ad8d0ef33cdad6f3b4310774fcc1053e"
 
-"@hundred5/slate-unist-serializer@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@hundred5/slate-unist-serializer/-/slate-unist-serializer-0.1.0.tgz#638dfe1863bbaa9ee841671fcbc6f74f5c0add7c"
+"@hundred5/slate-unist-serializer@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@hundred5/slate-unist-serializer/-/slate-unist-serializer-0.1.1.tgz#5f999a387e5a97df0f5c135f6458e8e1453243a9"
   dependencies:
     "@types/slate" "^0.33.4"
     "@types/unist" "^1.0.0"

@@ -208,10 +208,6 @@ const rules: Rule<Node>[] = [
 
         return { type: "image", url, title, alt };
       }
-
-      if (node.object === "inline" && node.type === inlines.upload) {
-        return { type: "text", value: "(Upload)" };
-      }
     },
     deserialize(node) {
       if (node.type === "image") {
