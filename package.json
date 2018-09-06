@@ -20,6 +20,7 @@
     "typescript": "^3.0.1"
   },
   "dependencies": {
+    "@hundred5/remark-cleanup": "^1.0.0",
     "@hundred5/slate-unist-serializer": "^0.1.1",
     "choose-files": "^1.0.1",
     "emotion": "^9.2.8",

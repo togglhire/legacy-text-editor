@@ -1,6 +1,7 @@
 import unified from "unified";
 import parse from "remark-parse";
 import stringify from "remark-stringify";
+import cleanup from "@hundred5/remark-cleanup";
 import { Serializer, Rule } from "@hundred5/slate-unist-serializer";
 import { blocks, marks, inlines } from "./constants";
 import { EditorState, createRichTextState } from "./state";
@@ -279,7 +280,12 @@ const rules: Rule<Node>[] = [
 const serializer = new Serializer({ rules });
 const processor = unified()
   .use(parse)
-  .use(stringify);
+  .use(cleanup)
+  .use(stringify, {
+    fences: true,
+    bullet: "*",
+    listItemIndent: "1"
+  });
 
 export const markdownToEditorState = (source: string): EditorState => {
   const tree = processor.parse(source);
@@ -290,7 +296,7 @@ export const markdownToEditorState = (source: string): EditorState => {
 export const editorStateToMarkdown = (state: EditorState): string => {
   if (state.type === "rich-text") {
     const tree = serializer.serialize(state.value);
-    const source = processor.stringify(tree);
+    const source = processor.stringify(processor.runSync(tree));
 
     return source;
   } else if (state.type === "raw-markdown") {

@@ -67,6 +67,13 @@
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/@emotion/utils/-/utils-0.8.1.tgz#f3a81587ad8d0ef33cdad6f3b4310774fcc1053e"
 
+"@hundred5/remark-cleanup@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@hundred5/remark-cleanup/-/remark-cleanup-1.0.0.tgz#73b2864fcc7fa7a7ab79ca7a4b2a01db2f4868fb"
+  dependencies:
+    object-assign "^4.1.1"
+    unist-util-remove "^1.0.1"
+
 "@hundred5/slate-unist-serializer@^0.1.1":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@hundred5/slate-unist-serializer/-/slate-unist-serializer-0.1.1.tgz#5f999a387e5a97df0f5c135f6458e8e1453243a9"
@@ -4738,7 +4745,7 @@ uniqs@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/uniqs/-/uniqs-2.0.0.tgz#ffede4b36b25290696e6e165d4a59edb998e6b02"
 
-unist-util-is@^2.1.2:
+unist-util-is@^2.0.0, unist-util-is@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/unist-util-is/-/unist-util-is-2.1.2.tgz#1193fa8f2bfbbb82150633f3a8d2eb9a1c1d55db"
 
@@ -4747,6 +4754,12 @@ unist-util-remove-position@^1.0.0:
   resolved "https://registry.yarnpkg.com/unist-util-remove-position/-/unist-util-remove-position-1.1.2.tgz#86b5dad104d0bbfbeb1db5f5c92f3570575c12cb"
   dependencies:
     unist-util-visit "^1.1.0"
+
+unist-util-remove@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/unist-util-remove/-/unist-util-remove-1.0.1.tgz#3e967d2aeb3ee9e7f0ee8354172986fba7ff33a5"
+  dependencies:
+    unist-util-is "^2.0.0"
 
 unist-util-stringify-position@^1.0.0, unist-util-stringify-position@^1.1.1:
   version "1.1.2"
