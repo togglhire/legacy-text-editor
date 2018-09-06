@@ -1,29 +1,56 @@
 import * as React from "react";
 import chooseFiles from "choose-files";
-import {
-  Change,
-  Inline,
-  Document,
-  InlineJSON,
-  NodeJSON,
-  Node,
-  Text,
-  Block
-} from "slate";
-import { inlines, blocks } from "../constants";
+import styled from "react-emotion";
+import { Change, Inline, Document, Node, Text, Block } from "slate";
 import { RenderNodeProps, Editor, RenderAttributes } from "slate-react";
 import { List } from "immutable";
+import { inlines, blocks } from "../constants";
 
-const Image = ({ node }: RenderNodeProps) => {
+const Image = styled("img")({
+  maxWidth: 300,
+  maxHeight: 300,
+  width: "auto",
+  height: "auto",
+  display: "block"
+});
+
+const Upload = styled("span")({
+  width: 300,
+  height: 200,
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  background: "#ccc"
+});
+
+const Frame = styled("span")<{ selected: boolean }>(props => ({
+  margin: -4,
+  padding: 2,
+  display: "inline-block",
+  borderWidth: 2,
+  borderStyle: "solid",
+  borderColor: props.selected ? "#E994AA" : "transparent",
+  borderRadius: 2
+}));
+
+const ImageNode = ({ node, isSelected }: RenderNodeProps) => {
   if (node.object === "inline" && node.type === inlines.image) {
-    return <img src={node.data.get("src")} />;
+    return (
+      <Frame selected={isSelected}>
+        <Image src={node.data.get("src")} />
+      </Frame>
+    );
   } else {
     return null;
   }
 };
 
-const Upload = () => {
-  return <span>Uploading...</span>;
+const UploadNode = ({ isSelected }: RenderNodeProps) => {
+  return (
+    <Frame selected={isSelected}>
+      <Upload>Uploading...</Upload>
+    </Frame>
+  );
 };
 
 let currentEditor: Editor | null = null;
@@ -38,9 +65,9 @@ const renderNode = (props: RenderNodeProps) => {
   if (props.node.object === "inline") {
     switch (props.node.type) {
       case inlines.image:
-        return <Image {...props} />;
+        return <ImageNode {...props} />;
       case inlines.upload:
-        return <Upload {...props} />;
+        return <UploadNode {...props} />;
     }
   }
 };
