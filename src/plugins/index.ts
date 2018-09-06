@@ -8,6 +8,7 @@ import { linkPlugin } from "./link";
 import { softBreakPlugin } from "./softBreak";
 import { trailingBlockPlugin } from "./trailingBlock";
 import { inlineCodePlugin } from "./inlineCode";
+import { imagePlugin } from "./image";
 
 export const plugins: Plugin[] = [
   blockCodePlugin,
@@ -18,5 +19,6 @@ export const plugins: Plugin[] = [
   softBreakPlugin,
   trailingBlockPlugin,
   linkPlugin,
+  imagePlugin,
   basePlugin
 ];

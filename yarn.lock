@@ -1049,6 +1049,10 @@ chokidar@^2.0.3:
   optionalDependencies:
     fsevents "^1.2.2"
 
+choose-files@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/choose-files/-/choose-files-1.0.1.tgz#fe0b27c4f00a893e2e6a91b34440c91217534ef8"
+
 chownr@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-1.0.1.tgz#e2a75042a9551908bebd25b8523d5f9769d79181"

@@ -22,10 +22,16 @@ const rules: Rule<Node>[] = [
     },
     deserialize(node, next) {
       if (node.type === "root") {
-        return {
-          object: "document",
-          nodes: node.children ? next(node.children) : []
-        };
+        if (node.children != null && node.children.length > 0) {
+          return { object: "document", nodes: next(node.children) };
+        } else {
+          return {
+            object: "document",
+            nodes: next([
+              { type: "paragraph", children: [{ type: "text", value: "" }] }
+            ])
+          };
+        }
       }
     }
   },
@@ -196,12 +202,15 @@ const rules: Rule<Node>[] = [
   {
     serialize(node) {
       if (node.object === "inline" && node.type === inlines.image) {
-        return {
-          type: "image",
-          url: node.data.get("src"),
-          title: node.data.get("title"),
-          alt: node.data.get("alt")
-        };
+        const url = node.data.get("src");
+        const title = node.data.get("title");
+        const alt = node.data.get("alt");
+
+        return { type: "image", url, title, alt };
+      }
+
+      if (node.object === "inline" && node.type === inlines.upload) {
+        return { type: "text", value: "(Upload)" };
       }
     },
     deserialize(node) {

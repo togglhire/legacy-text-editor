@@ -6,6 +6,7 @@ import { listPlugin } from "./plugins/list";
 import { linkPlugin } from "./plugins/link";
 import { editorStateToMarkdown, markdownToEditorState } from "./markdown";
 import { inlineCodePlugin } from "./plugins/inlineCode";
+import { imagePlugin } from "./plugins/image";
 
 const changeRichTextState = (
   state: RichTextState,
@@ -60,6 +61,17 @@ export const toggleInlineCode = (state: RichTextState): RichTextState => {
     } else {
       return inlineCodePlugin.changes.wrapInCode(change);
     }
+  });
+};
+
+export const insertImage = async (
+  state: RichTextState
+): Promise<RichTextState> => {
+  const files = await imagePlugin.utils.selectImages();
+  const images = imagePlugin.utils.uploadImages(files);
+
+  return changeRichTextState(state, change => {
+    return imagePlugin.changes.insertImages(change, images);
   });
 };
 

@@ -10,6 +10,7 @@ export const blocks = {
 export const inlines = {
   link: "link",
   image: "image",
+  upload: "upload",
   code: "inline-code"
 };
 

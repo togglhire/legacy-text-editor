@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@hundred5/slate-unist-serializer": "^0.1.0",
+    "choose-files": "^1.0.1",
     "emotion": "^9.2.8",
     "immutable": "^3.8.1",
     "is-hotkey": "^0.1.3",

@@ -52,19 +52,40 @@ const RichTextButton = ({
   </IconButton>
 );
 
+interface ImageButtonProps {
+  state: EditorState;
+  onChange: (state: EditorState) => void;
+  children: React.ReactNode;
+}
+
+const ImageButton = ({ state, onChange, children }: ImageButtonProps) => (
+  <IconButton
+    active={false}
+    disabled={state.type !== "rich-text"}
+    onClick={() => {
+      if (state.type === "rich-text") {
+        transforms.insertImage(state).then(onChange);
+      }
+    }}
+  >
+    {children}
+  </IconButton>
+);
+
 interface MarkdownButtonProps {
   state: EditorState;
   onChange: (state: EditorState) => void;
+  children: React.ReactNode;
 }
 
-const MarkdownButton = ({ state, onChange }: MarkdownButtonProps) => (
+const MarkdownButton = ({ state, onChange, children }: MarkdownButtonProps) => (
   <IconButton
     active={transforms.isInMarkdown(state)}
     onClick={() => {
       onChange(transforms.toggleMarkdown(state));
     }}
   >
-    <icons.Markdown />
+    {children}
   </IconButton>
 );
 
@@ -140,6 +161,11 @@ export const Toolbar = ({ state, onChange }: ToolbarProps) => (
     >
       <icons.Link />
     </RichTextButton>
-    <MarkdownButton state={state} onChange={onChange} />
+    <ImageButton state={state} onChange={onChange}>
+      <icons.Image />
+    </ImageButton>
+    <MarkdownButton state={state} onChange={onChange}>
+      <icons.Markdown />
+    </MarkdownButton>
   </React.Fragment>
 );
