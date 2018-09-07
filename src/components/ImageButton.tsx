@@ -12,6 +12,7 @@ export const ImageButton = ({ state, onClick, children }: ImageButtonProps) => (
   <IconButton
     active={false}
     disabled={state.type !== "rich-text"}
+    type="button"
     onClick={() => {
       onClick();
     }}

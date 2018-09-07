@@ -16,6 +16,7 @@ export const MarkdownButton = ({
 }: MarkdownButtonProps) => (
   <IconButton
     active={transforms.isInMarkdown(state)}
+    type="button"
     onClick={() => {
       onChange(transforms.toggleMarkdown(state));
     }}
