@@ -28,7 +28,9 @@ export const toggleStrikethrough = toggleMark(marks.strikethrough);
 
 export const toggleBlockCode = (state: RichTextState): RichTextState => {
   return changeRichTextState(state, change =>
-    blockCodePlugin.changes.toggleCodeBlock(change, blocks.paragraph)
+    blockCodePlugin.changes
+      .toggleCodeBlock(change, blocks.paragraph)
+      .normalize()
   );
 };
 
