@@ -1,6 +1,6 @@
 import * as React from "react";
-import { EditorProps } from "./types";
-import { EditorState } from "./state";
+import { EditorProps } from "../types";
+import { EditorState } from "../state";
 import { RichTextEditor } from "./RichTextEditor";
 import { RawMarkdownEditor } from "./RawMarkdownEditor";
 

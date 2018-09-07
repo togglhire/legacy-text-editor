@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "react-emotion";
-import { EditorState, RichTextState } from "./state";
-import * as icons from "./icons";
-import * as transforms from "./transforms";
+import { EditorState, RichTextState } from "../state";
+import * as icons from "../icons";
+import * as transforms from "../transforms";
 
 interface IconButtonProps {
   active: boolean;

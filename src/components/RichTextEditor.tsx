@@ -1,8 +1,8 @@
 import React from "react";
 import { Editor } from "slate-react";
-import { EditorProps } from "./types";
-import { RichTextState } from "./state";
-import { plugins } from "./plugins";
+import { EditorProps } from "../types";
+import { RichTextState } from "../state";
+import { plugins } from "../plugins";
 import { Change } from "slate";
 import styled from "react-emotion";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "react-emotion";
-import { EditorProps } from "./types";
-import { RawMarkdownState } from "./state";
+import { EditorProps } from "../types";
+import { RawMarkdownState } from "../state";
 
 const Textarea = styled("textarea")({
   padding: 0,
