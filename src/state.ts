@@ -51,9 +51,9 @@ export const replaceUpload = (
 
 export const isEmpty = (state: EditorState): boolean => {
   if (state.type === "rich-text") {
-    return state.value.document.text.trim().length > 0;
+    return state.value.document.text.trim().length === 0;
   } else if (state.type === "raw-markdown") {
-    return state.value.trim().length > 0;
+    return state.value.trim().length === 0;
   } else {
     return false;
   }
