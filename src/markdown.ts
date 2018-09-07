@@ -284,7 +284,9 @@ const processor = unified()
   .use(stringify, {
     fences: true,
     bullet: "*",
-    listItemIndent: "1"
+    listItemIndent: "1",
+    commonmark: true,
+    pedantic: true
   });
 
 export const markdownToEditorState = (source: string): EditorState => {
