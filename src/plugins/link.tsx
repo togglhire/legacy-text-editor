@@ -1,6 +1,7 @@
 import * as React from "react";
 import { RenderAttributes, Editor, RenderNodeProps, Plugin } from "slate-react";
 import { Node, Inline, Change, Value } from "slate";
+import styled from "react-emotion";
 import { inlines } from "../constants";
 import isUrl from "is-url";
 
@@ -13,8 +14,16 @@ interface Props {
   parent: Node;
 }
 
-const Link = ({ attributes, node, editor, children }: Props) => (
-  <a
+const Link = styled("a")({
+  color: "#3599CE",
+  textDecoration: "none",
+  "&:hover": {
+    textDecoration: "underline"
+  }
+});
+
+const LinkNode = ({ attributes, node, editor, children }: Props) => (
+  <Link
     href={node.data.get("href")}
     title={node.data.get("title")}
     onClick={() => {
@@ -31,12 +40,12 @@ const Link = ({ attributes, node, editor, children }: Props) => (
     {...attributes}
   >
     {children}
-  </a>
+  </Link>
 );
 
 const renderNode = (props: RenderNodeProps) => {
   if (props.node.object === "inline" && props.node.type === inlines.link) {
-    return <Link {...props} node={props.node} />;
+    return <LinkNode {...props} node={props.node} />;
   }
 };
 

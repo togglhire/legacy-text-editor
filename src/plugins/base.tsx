@@ -1,45 +1,52 @@
 import * as React from "react";
+import styled from "react-emotion";
 import { RenderNodeProps, RenderMarkProps, Plugin } from "slate-react";
 import { blocks, inlines, marks } from "../constants";
+
+const Paragraph = styled("p")({
+  marginTop: "0.5em",
+  marginBottom: "0.5em"
+});
+
+const BlockCode = styled("pre")({
+  padding: 20,
+  marginTop: "0.5em",
+  marginBottom: "0.5em",
+  background: "#F5F5F5"
+});
+
+const InlineCode = styled("code")({
+  padding: 3,
+  background: "#F5F5F5"
+});
+
+const OrderedList = styled("ol")({
+  paddingLeft: 30
+});
+
+const UnorderedList = styled("ul")({
+  paddingLeft: 30
+});
 
 const renderNode = ({ node, attributes, children }: RenderNodeProps) => {
   if (node.object === "block" || node.object === "inline") {
     switch (node.type) {
       case blocks.paragraph:
-        return <p {...attributes}>{children}</p>;
+        return <Paragraph {...attributes}>{children}</Paragraph>;
       case blocks.code:
         return (
-          <pre>
+          <BlockCode>
             <code {...attributes}>{children}</code>
-          </pre>
+          </BlockCode>
         );
       case blocks.orderedList:
-        return <ol {...attributes}>{children}</ol>;
+        return <OrderedList {...attributes}>{children}</OrderedList>;
       case blocks.unorderedList:
-        return <ul {...attributes}>{children}</ul>;
+        return <UnorderedList {...attributes}>{children}</UnorderedList>;
       case blocks.listItem:
         return <li {...attributes}>{children}</li>;
-      case inlines.link:
-        return (
-          <a
-            href={node.data.get("href")}
-            title={node.data.get("title")}
-            {...attributes}
-          >
-            {children}
-          </a>
-        );
-      case inlines.image:
-        return (
-          <img
-            src={node.data.get("src")}
-            alt={node.data.get("alt")}
-            title={node.data.get("title")}
-            {...attributes}
-          />
-        );
       case inlines.code:
-        return <code {...attributes}>{children}</code>;
+        return <InlineCode {...attributes}>{children}</InlineCode>;
     }
   }
 };

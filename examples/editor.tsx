@@ -70,8 +70,8 @@ let nextId = 1;
 
 const initialEditorState = markdownToEditorState(
   [
-    "_Hello_ ~~word~~ **world**!",
-    "    Some code",
+    "_Hello_ ~~word~~ **world**! `Inline code`",
+    "```\nSome block code\n```",
     "* A list\n* Woo",
     "[Some link](http://example.com)",
     "![An image](https://via.placeholder.com/350x150)"
