@@ -1,21 +1,21 @@
 import { Plugin, getEventTransfer } from "slate-react";
-import Serializer from "slate-html-serializer";
+import Serializer, { Rule } from "slate-html-serializer";
 import { blocks, marks, inlines } from "../constants";
 
-const blockTags = {
+const blockTags: { [tag: string]: string } = {
   p: blocks.paragraph,
   li: blocks.listItem,
   ul: blocks.unorderedList,
   ol: blocks.orderedList
 };
 
-const markTags = {
+const markTags: { [tag: string]: string } = {
   strong: marks.bold,
   em: marks.italic,
   s: marks.strikethrough
 };
 
-const rules = [
+const rules: Rule[] = [
   {
     deserialize(el, next) {
       const block = blockTags[el.tagName.toLowerCase()];
@@ -44,7 +44,7 @@ const rules = [
   },
   {
     deserialize(el, next) {
-      if (el.tagName.toLowerCase() == "pre") {
+      if (el.tagName.toLowerCase() == "pre" && el.textContent != null) {
         const lines = el.textContent.split(/\r\n|\n|\r/);
 
         return {

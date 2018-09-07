@@ -12,6 +12,7 @@
     "@types/react": "^16.4.12",
     "@types/react-dom": "^16.0.7",
     "@types/slate": "^0.33.4",
+    "@types/slate-html-serializer": "^0.6.2",
     "@types/slate-react": "^0.12.3",
     "parcel-bundler": "^1.9.7",
     "prettier": "^1.14.2",

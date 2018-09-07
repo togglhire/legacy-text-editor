@@ -17,6 +17,7 @@ interface EditCodePlugin extends Plugin {
 }
 
 interface Utils {
+  isInCodeBlock(value: Value): boolean;
   deserializeCode(text: string): Block;
 }
 

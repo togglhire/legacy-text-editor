@@ -124,6 +124,13 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
+"@types/slate-html-serializer@^0.6.2":
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/@types/slate-html-serializer/-/slate-html-serializer-0.6.2.tgz#7e4bf258bb52489cd392a8f26c2fe04eb97c7cfc"
+  dependencies:
+    "@types/react" "*"
+    "@types/slate" "*"
+
 "@types/slate-react@^0.12.3":
   version "0.12.3"
   resolved "https://registry.yarnpkg.com/@types/slate-react/-/slate-react-0.12.3.tgz#6a5f0b2d85cbe2ad5602428df285601e32066486"
