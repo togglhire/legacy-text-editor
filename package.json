@@ -48,9 +48,6 @@
     "prepublish": "tsc || true"
   },
   "files": [
-    "src",
-    "lib",
-    "typings",
-    "tsconfig.json"
+    "lib"
   ]
 }
