@@ -2,16 +2,15 @@
   "name": "@hundred5/text-editor",
   "version": "1.0.0",
   "description": "Text editor React component for use in Hundred5 web apps",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "repository": "https://github.com/Hundred5/text-editor",
   "author": "Michal Miškerník <michal@miskernik.sk>",
   "license": "MIT",
   "devDependencies": {
     "@types/is-hotkey": "^0.1.0",
     "@types/is-url": "^1.2.28",
-    "@types/react": "^16.4.12",
     "@types/react-dom": "^16.0.7",
-    "@types/slate": "^0.33.4",
     "@types/slate-html-serializer": "^0.6.2",
     "@types/slate-react": "^0.12.3",
     "parcel-bundler": "^1.9.7",
@@ -23,6 +22,8 @@
   "dependencies": {
     "@hundred5/remark-cleanup": "^1.0.0",
     "@hundred5/slate-unist-serializer": "^0.1.1",
+    "@types/react": "^16.4.12",
+    "@types/slate": "^0.33.4",
     "choose-files": "^1.0.1",
     "emotion": "^9.2.8",
     "immutable": "^3.8.1",
@@ -36,9 +37,18 @@
     "slate-edit-code": "^0.15.5",
     "slate-edit-list": "^0.12.1",
     "slate-html-serializer": "^0.7.2",
-    "slate-react": "0.14.0",
+    "slate-react": "^0.13.0",
     "slate-soft-break": "^0.8.0",
     "slate-trailing-block": "^0.5.0",
     "unified": "^7.0.0"
-  }
+  },
+  "scripts": {
+    "prepublish": "tsc"
+  },
+  "files": [
+    "src",
+    "lib",
+    "typings",
+    "tsconfig.json"
+  ]
 }

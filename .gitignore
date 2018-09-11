@@ -5,3 +5,6 @@ yarn-error.log
 # Parcel
 .cache
 dist
+
+# TypeScript
+lib

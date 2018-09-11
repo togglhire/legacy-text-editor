@@ -10,6 +10,8 @@
     "paths": {
       "*": ["typings/*"]
     },
-    "lib": ["dom", "es2015"]
-  }
+    "lib": ["dom", "es2015"],
+    "outDir": "lib"
+  },
+  "files": ["src/index.ts"]
 }
