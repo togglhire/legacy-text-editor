@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "react-emotion";
+import AutosizeTextarea from "react-textarea-autosize";
 import { EditorProps } from "../types";
 import { RawMarkdownState } from "../state";
 
-const Textarea = styled("textarea")({
+const Textarea = styled(AutosizeTextarea)({
   padding: 0,
   display: "block",
   width: "100%",
@@ -13,7 +14,8 @@ const Textarea = styled("textarea")({
   fontSize: "inherit",
   fontFamily: "monospace",
   color: "inherit",
-  outline: "none"
+  outline: "none",
+  resize: "none"
 });
 
 interface Props extends EditorProps {

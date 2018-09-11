@@ -34,7 +34,6 @@ class App extends React.Component<{}, State> {
 
         <div className="editor-content">
           <TextEditor
-            className="editor-field"
             state={editor}
             onChange={this.handleChange}
           />
