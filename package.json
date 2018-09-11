@@ -45,7 +45,7 @@
     "unified": "^7.0.0"
   },
   "scripts": {
-    "prepublish": "tsc"
+    "prepublish": "tsc || true"
   },
   "files": [
     "src",
