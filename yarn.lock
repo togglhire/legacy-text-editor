@@ -67,16 +67,16 @@
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/@emotion/utils/-/utils-0.8.1.tgz#f3a81587ad8d0ef33cdad6f3b4310774fcc1053e"
 
-"@hundred5/remark-cleanup@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@hundred5/remark-cleanup/-/remark-cleanup-1.0.0.tgz#73b2864fcc7fa7a7ab79ca7a4b2a01db2f4868fb"
+"@hundred5/remark-cleanup@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@hundred5/remark-cleanup/-/remark-cleanup-1.0.1.tgz#4ce02d77f3c3c4548da222bf08388e149a8b5a60"
   dependencies:
     object-assign "^4.1.1"
     unist-util-remove "^1.0.1"
 
-"@hundred5/slate-unist-serializer@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@hundred5/slate-unist-serializer/-/slate-unist-serializer-0.1.1.tgz#5f999a387e5a97df0f5c135f6458e8e1453243a9"
+"@hundred5/slate-unist-serializer@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@hundred5/slate-unist-serializer/-/slate-unist-serializer-0.1.2.tgz#83c61fbbdbecb93c76fbc6a0a553c00d54467faa"
   dependencies:
     "@types/slate" "^0.33.4"
     "@types/unist" "^1.0.0"

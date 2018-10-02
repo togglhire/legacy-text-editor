@@ -21,8 +21,8 @@
     "typescript": "^3.0.1"
   },
   "dependencies": {
-    "@hundred5/remark-cleanup": "^1.0.0",
-    "@hundred5/slate-unist-serializer": "^0.1.1",
+    "@hundred5/remark-cleanup": "^1.0.1",
+    "@hundred5/slate-unist-serializer": "^0.1.2",
     "@types/react": "^16.4.12",
     "@types/slate": "^0.33.4",
     "choose-files": "^1.0.1",
