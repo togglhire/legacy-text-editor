@@ -1,5 +1,7 @@
 import { Value } from "slate";
 import * as transforms from "./transforms";
+import { node } from "prop-types";
+import { blocks } from "./constants";
 
 export interface RichTextState {
   type: "rich-text";
@@ -51,7 +53,15 @@ export const replaceUpload = (
 
 export const isEmpty = (state: EditorState): boolean => {
   if (state.type === "rich-text") {
-    return state.value.document.text.trim().length === 0;
+    if (state.value.document.nodes.isEmpty()) return true;
+
+    const node = state.value.document.nodes.first();
+
+    return (
+      node.type === blocks.paragraph &&
+      node.nodes.every(child => child != null && child.object === "text") &&
+      node.text.trim() === ""
+    );
   } else if (state.type === "raw-markdown") {
     return state.value.trim().length === 0;
   } else {
