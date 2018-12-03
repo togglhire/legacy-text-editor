@@ -220,7 +220,13 @@ const rules: Rule<Node>[] = [
             src: node.url,
             title: node.title,
             alt: node.alt
-          }
+          },
+          nodes: [
+            {
+              object: "text",
+              leaves: [{ object: "leaf", text: "" }]
+            }
+          ]
         };
       }
     }

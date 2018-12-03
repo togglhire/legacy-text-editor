@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "react-emotion";
-import { Change } from "slate";
+import { Change, Schema, Inline, NodeJSON } from "slate";
 import { RenderNodeProps } from "slate-react";
 import { inlines } from "../constants";
 
@@ -62,12 +62,21 @@ const renderNode = (props: RenderNodeProps) => {
   }
 };
 
+const emptyTextNode: NodeJSON = {
+  object: "text",
+  leaves: [{ object: "leaf", text: "" }]
+};
+
 const insertUpload = (change: Change, id: string): Change => {
-  return change.insertInline({
+  const inline = Inline.fromJSON({
+    object: "inline",
     type: inlines.upload,
     data: { id },
-    isVoid: true
+    isVoid: true,
+    nodes: [emptyTextNode]
   });
+
+  return change.insertInline(inline);
 };
 
 const replaceUpload = (change: Change, id: string, url: string): Change => {
@@ -89,16 +98,27 @@ const replaceUpload = (change: Change, id: string, url: string): Change => {
 };
 
 const insertImage = (change: Change, url: string): Change => {
-  return change.insertInline({
+  const inline = Inline.fromJSON({
+    object: "inline",
     type: inlines.image,
     data: { src: url },
-    isVoid: true
+    isVoid: true,
+    nodes: [emptyTextNode]
   });
+
+  return change.insertInline(inline);
 };
+
+const schema = Schema.create({
+  inlines: {
+    [inlines.image]: { isVoid: true },
+    [inlines.upload]: { isVoid: true }
+  }
+});
 
 export const imagePlugin = {
   renderNode,
-
+  schema,
   changes: {
     insertImage,
     insertUpload,
