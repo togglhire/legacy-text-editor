@@ -1,18 +1,7 @@
-import * as React from "react";
-import { RenderAttributes, Editor, RenderNodeProps, Plugin } from "slate-react";
-import { Node, Inline, Change, Value } from "slate";
+import React from "react";
 import styled from "react-emotion";
 import { inlines } from "../constants";
 import isUrl from "is-url";
-
-interface Props {
-  attributes: RenderAttributes;
-  children: React.ReactNode;
-  editor: Editor;
-  isSelected: boolean;
-  node: Inline;
-  parent: Node;
-}
 
 const Link = styled("a")({
   color: "#3599CE",
@@ -22,7 +11,7 @@ const Link = styled("a")({
   }
 });
 
-const LinkNode = ({ attributes, node, editor, children }: Props) => (
+const LinkNode = ({ attributes, node, editor, children }) => (
   <Link
     href={node.data.get("href")}
     title={node.data.get("title")}
@@ -43,13 +32,13 @@ const LinkNode = ({ attributes, node, editor, children }: Props) => (
   </Link>
 );
 
-const renderNode = (props: RenderNodeProps) => {
+const renderNode = props => {
   if (props.node.object === "inline" && props.node.type === inlines.link) {
     return <LinkNode {...props} node={props.node} />;
   }
 };
 
-const promptForUrl = (defaultUrl?: string): string | null => {
+const promptForUrl = defaultUrl => {
   let enteredUrl;
 
   enteredUrl = prompt("Please enter URL", defaultUrl);
@@ -63,7 +52,7 @@ const promptForUrl = (defaultUrl?: string): string | null => {
   return enteredUrl;
 };
 
-const isInLink = (value: Value): boolean => {
+const isInLink = value => {
   return (
     value.document.getClosest(
       value.selection.startKey,
@@ -72,32 +61,18 @@ const isInLink = (value: Value): boolean => {
   );
 };
 
-const wrapInLink = (change: Change): Change => {
+const wrapInLink = change => {
   const href = promptForUrl();
   if (href == null) return change;
 
   return change.wrapInline({ type: inlines.link, data: { href } });
 };
 
-const unwrapLink = (change: Change): Change => {
+const unwrapLink = change => {
   return change.unwrapInline(inlines.link);
 };
 
-interface Utils {
-  isInLink: (value: Value) => boolean;
-}
-
-interface Changes {
-  wrapInLink: (change: Change) => Change;
-  unwrapLink: (change: Change) => Change;
-}
-
-interface LinkPlugin extends Plugin {
-  utils: Utils;
-  changes: Changes;
-}
-
-export const linkPlugin: LinkPlugin = {
+export const linkPlugin = {
   renderNode,
   utils: { isInLink },
   changes: { wrapInLink, unwrapLink }

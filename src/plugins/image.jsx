@@ -1,7 +1,6 @@
-import * as React from "react";
+import React from "react";
 import styled from "react-emotion";
-import { Change, Schema, Inline, NodeJSON } from "slate";
-import { RenderNodeProps } from "slate-react";
+import { Schema } from "slate";
 import { inlines } from "../constants";
 
 const Image = styled("img")({
@@ -21,7 +20,7 @@ const Upload = styled("span")({
   background: "#ccc"
 });
 
-const Frame = styled("span")<{ selected: boolean }>(props => ({
+const Frame = styled("span")(props => ({
   margin: -4,
   padding: 2,
   display: "inline-block",
@@ -31,7 +30,7 @@ const Frame = styled("span")<{ selected: boolean }>(props => ({
   borderRadius: 2
 }));
 
-const ImageNode = ({ node, isSelected }: RenderNodeProps) => {
+const ImageNode = ({ node, isSelected }) => {
   if (node.object === "inline" && node.type === inlines.image) {
     return (
       <Frame selected={isSelected}>
@@ -43,7 +42,7 @@ const ImageNode = ({ node, isSelected }: RenderNodeProps) => {
   }
 };
 
-const UploadNode = ({ isSelected }: RenderNodeProps) => {
+const UploadNode = ({ isSelected }) => {
   return (
     <Frame selected={isSelected}>
       <Upload>Uploading...</Upload>
@@ -51,23 +50,21 @@ const UploadNode = ({ isSelected }: RenderNodeProps) => {
   );
 };
 
-const renderNode = (props: RenderNodeProps) => {
-  if (props.node.object === "inline") {
-    switch (props.node.type) {
-      case inlines.image:
-        return <ImageNode {...props} />;
-      case inlines.upload:
-        return <UploadNode {...props} />;
-    }
+const renderNode = props => {
+  switch (props.node.type) {
+    case inlines.image:
+      return <ImageNode {...props} />;
+    case inlines.upload:
+      return <UploadNode {...props} />;
   }
 };
 
-const emptyTextNode: NodeJSON = {
+const emptyTextNode = {
   object: "text",
   leaves: [{ object: "leaf", text: "" }]
 };
 
-const insertUpload = (change: Change, id: string): Change => {
+const insertUpload = (change, id) => {
   const inline = Inline.fromJSON({
     object: "inline",
     type: inlines.upload,
@@ -79,7 +76,7 @@ const insertUpload = (change: Change, id: string): Change => {
   return change.insertInline(inline);
 };
 
-const replaceUpload = (change: Change, id: string, url: string): Change => {
+const replaceUpload = (change, id, url) => {
   const upload = change.value.document.findDescendant(
     node =>
       node.object === "inline" &&
@@ -97,7 +94,7 @@ const replaceUpload = (change: Change, id: string, url: string): Change => {
   return change;
 };
 
-const insertImage = (change: Change, url: string): Change => {
+const insertImage = (change, url) => {
   const inline = Inline.fromJSON({
     object: "inline",
     type: inlines.image,

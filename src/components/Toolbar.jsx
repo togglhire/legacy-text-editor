@@ -1,18 +1,11 @@
 import React from "react";
-import { EditorState } from "../state";
 import * as icons from "../icons";
 import * as transforms from "../transforms";
 import { RichTextButton } from "./RichTextButton";
 import { ImageButton } from "./ImageButton";
 import { MarkdownButton } from "./MarkdownButton";
 
-interface ToolbarProps {
-  state: EditorState;
-  onChange: (state: EditorState) => void;
-  onInsertImage: () => void;
-}
-
-export const Toolbar = ({ state, onChange, onInsertImage }: ToolbarProps) => (
+export const Toolbar = ({ state, onChange, onInsertImage }) => (
   <React.Fragment>
     <RichTextButton
       state={state}

@@ -1,21 +1,20 @@
-import { Plugin, getEventTransfer } from "slate-react";
-import Serializer, { Rule } from "slate-html-serializer";
+import { getEventTransfer } from "slate-react";
 import { blocks, marks, inlines } from "../constants";
 
-const blockTags: { [tag: string]: string } = {
+const blockTags = {
   p: blocks.paragraph,
   li: blocks.listItem,
   ul: blocks.unorderedList,
   ol: blocks.orderedList
 };
 
-const markTags: { [tag: string]: string } = {
+const markTags = {
   strong: marks.bold,
   em: marks.italic,
   s: marks.strikethrough
 };
 
-const rules: Rule[] = [
+const rules = [
   {
     deserialize(el, next) {
       const block = blockTags[el.tagName.toLowerCase()];
@@ -110,12 +109,12 @@ const rules: Rule[] = [
   }
 ];
 
-export const pastePlugin: Plugin = {
+export const pastePlugin = {
   onPaste: (event, change) => {
     const transfer = getEventTransfer(event);
 
     if (transfer.type === "html") {
-      const source: string = (transfer as any).html;
+      const source = transfer.html;
 
       const serializer = new Serializer({ rules });
       const value = serializer.deserialize(source);
@@ -124,7 +123,7 @@ export const pastePlugin: Plugin = {
     }
 
     if (transfer.type === "text") {
-      const source: string = (transfer as any).text;
+      const source = transfer.text;
       return change.insertText(source);
     }
   }

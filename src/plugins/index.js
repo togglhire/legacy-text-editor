@@ -1,4 +1,3 @@
-import { Plugin } from "slate-react";
 import { basePlugin } from "./base";
 import { blockCodePlugin } from "./blockCode";
 import { listPlugin } from "./list";
@@ -10,7 +9,7 @@ import { trailingBlockPlugin } from "./trailingBlock";
 import { inlineCodePlugin } from "./inlineCode";
 import { imagePlugin } from "./image";
 
-export const plugins: Plugin[] = [
+export const plugins = [
   blockCodePlugin,
   inlineCodePlugin,
   listPlugin,

@@ -1,29 +1,15 @@
-import { Value } from "slate";
 import * as transforms from "./transforms";
-import { node } from "prop-types";
 import { blocks } from "./constants";
 
-export interface RichTextState {
-  type: "rich-text";
-  value: Value;
-}
-
-export interface RawMarkdownState {
-  type: "raw-markdown";
-  value: string;
-}
-
-export type EditorState = RichTextState | RawMarkdownState;
-
-export const createRichTextState = (value: Value): RichTextState => {
+export const createRichTextState = value => {
   return { type: "rich-text", value };
 };
 
-export const createRawMarkdownState = (value: string): RawMarkdownState => {
+export const createRawMarkdownState = value => {
   return { type: "raw-markdown", value };
 };
 
-export const insertImage = (state: EditorState, url: string): EditorState => {
+export const insertImage = (state, url) => {
   if (state.type === "rich-text") {
     return transforms.insertImage(state, url);
   } else {
@@ -31,7 +17,7 @@ export const insertImage = (state: EditorState, url: string): EditorState => {
   }
 };
 
-export const insertUpload = (state: EditorState, id: string): EditorState => {
+export const insertUpload = (state, id) => {
   if (state.type === "rich-text") {
     return transforms.insertUpload(state, id);
   } else {
@@ -39,11 +25,7 @@ export const insertUpload = (state: EditorState, id: string): EditorState => {
   }
 };
 
-export const replaceUpload = (
-  state: EditorState,
-  id: string,
-  url: string
-): EditorState => {
+export const replaceUpload = (state, id, url) => {
   if (state.type === "rich-text") {
     return transforms.replaceUpload(state, id, url);
   } else {
@@ -51,7 +33,7 @@ export const replaceUpload = (
   }
 };
 
-export const isEmpty = (state: EditorState): boolean => {
+export const isEmpty = state => {
   if (state.type === "rich-text") {
     if (state.value.document.nodes.isEmpty()) return true;
 

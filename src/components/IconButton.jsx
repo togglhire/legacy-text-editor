@@ -1,10 +1,6 @@
 import styled from "react-emotion";
 
-interface IconButtonProps {
-  active: boolean;
-}
-
-export const IconButton = styled("button")<IconButtonProps>(props => ({
+export const IconButton = styled("button")(props => ({
   padding: 0,
   border: "none",
   background: "transparent",

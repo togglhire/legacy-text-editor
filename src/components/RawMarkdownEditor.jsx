@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "react-emotion";
 import AutosizeTextarea from "react-textarea-autosize";
-import { EditorProps } from "../types";
-import { RawMarkdownState } from "../state";
 
 const Textarea = styled(AutosizeTextarea)({
   padding: 0,
@@ -18,12 +16,7 @@ const Textarea = styled(AutosizeTextarea)({
   resize: "none"
 });
 
-interface Props extends EditorProps {
-  state: RawMarkdownState;
-  onChange: (state: RawMarkdownState) => void;
-}
-
-export const RawMarkdownEditor = (props: Props) => {
+export const RawMarkdownEditor = props => {
   const { state, onChange, autoCorrect, ...rest } = props;
 
   return (

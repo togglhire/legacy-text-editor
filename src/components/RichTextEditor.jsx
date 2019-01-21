@@ -1,9 +1,6 @@
 import React from "react";
 import { Editor } from "slate-react";
-import { EditorProps } from "../types";
-import { RichTextState } from "../state";
 import { plugins } from "../plugins";
-import { Change } from "slate";
 import styled from "react-emotion";
 
 const StyledEditor = styled(Editor)({
@@ -15,16 +12,11 @@ const StyledEditor = styled(Editor)({
   }
 });
 
-interface Props extends EditorProps {
-  state: RichTextState;
-  onChange: (state: RichTextState) => void;
-}
-
-export const RichTextEditor = ({ state, onChange, ...props }: Props) => (
+export const RichTextEditor = ({ state, onChange, ...props }) => (
   <StyledEditor
     plugins={plugins}
     value={state.value}
-    onChange={(change: Change) => {
+    onChange={change => {
       onChange({ type: "rich-text", value: change.value });
     }}
     {...props}

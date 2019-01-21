@@ -2,18 +2,11 @@ import unified from "unified";
 import parse from "remark-parse";
 import stringify from "remark-stringify";
 import cleanup from "@hundred5/remark-cleanup";
-import { Serializer, Rule } from "@hundred5/slate-unist-serializer";
+import { Serializer } from "@hundred5/slate-unist-serializer";
 import { blocks, marks, inlines } from "./constants";
-import { EditorState, createRichTextState } from "./state";
+import { createRichTextState } from "./state";
 
-interface Node {
-  type: string;
-  children?: Node[];
-  value?: string;
-  [attribute: string]: any;
-}
-
-const rules: Rule<Node>[] = [
+const rules = [
   // document
   {
     serialize(node, children) {
@@ -82,7 +75,7 @@ const rules: Rule<Node>[] = [
           meta: null,
           value: children
             .map(child => child.value)
-            .filter((text): text is string => text != null)
+            .filter(text => text != null)
             .join("\n")
         };
       }
@@ -92,7 +85,7 @@ const rules: Rule<Node>[] = [
           type: "codeLine",
           value: children
             .map(child => child.value)
-            .filter((text): text is string => text != null)
+            .filter(text => text != null)
             .join("")
         };
       }
@@ -295,13 +288,13 @@ const processor = unified()
     pedantic: true
   });
 
-export const markdownToEditorState = (source: string): EditorState => {
+export const markdownToEditorState = source => {
   const tree = processor.parse(source);
   const value = serializer.deserialize(tree);
   return createRichTextState(value);
 };
 
-export const editorStateToMarkdown = (state: EditorState): string => {
+export const editorStateToMarkdown = state => {
   if (state.type === "rich-text") {
     const tree = serializer.serialize(state.value);
     const source = processor.stringify(processor.runSync(tree));

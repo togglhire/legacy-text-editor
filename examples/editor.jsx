@@ -1,23 +1,22 @@
-import * as React from "react";
+import React from "react";
 import { render } from "react-dom";
 import {
   Toolbar,
   TextEditor,
-  EditorState,
   insertUpload,
   replaceUpload,
   markdownToEditorState,
   editorStateToMarkdown
 } from "../src";
 
-interface State {
-  editor: EditorState;
-}
+class App extends React.Component {
+  constructor(props) {
+    super(props);
 
-class App extends React.Component<{}, State> {
-  state = {
-    editor: initialEditorState
-  };
+    this.state = {
+      editor: initialEditorState
+    };
+  }
 
   render() {
     const { editor } = this.state;
@@ -27,15 +26,15 @@ class App extends React.Component<{}, State> {
         <div className="editor-toolbar">
           <Toolbar
             state={editor}
-            onChange={this.handleChange}
-            onInsertImage={this.insertImage}
+            onChange={editor => this.setState({ editor })}
+            onInsertImage={() => this.insertImage()}
           />
         </div>
 
         <div className="editor-content">
           <TextEditor
             state={editor}
-            onChange={this.handleChange}
+            onChange={editor => this.setState({ editor })}
           />
         </div>
 
@@ -44,7 +43,7 @@ class App extends React.Component<{}, State> {
     );
   }
 
-  insertImage = () => {
+  insertImage() {
     const query = Math.floor(Math.random() * 1000).toString();
     const url = "https://placeimg.com/640/480/any?" + query;
     const id = (nextId++).toString();
@@ -58,11 +57,7 @@ class App extends React.Component<{}, State> {
         editor: replaceUpload(state.editor, id, url)
       }));
     }, 1000);
-  };
-
-  handleChange = (editor: EditorState) => {
-    this.setState({ editor });
-  };
+  }
 }
 
 let nextId = 1;
