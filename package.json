@@ -8,23 +8,17 @@
   "author": "Michal Miškerník <michal@miskernik.sk>",
   "license": "MIT",
   "devDependencies": {
-    "@types/is-hotkey": "^0.1.0",
-    "@types/is-url": "^1.2.28",
-    "@types/react-dom": "^16.0.7",
-    "@types/react-textarea-autosize": "^4.3.3",
-    "@types/slate-html-serializer": "^0.6.2",
-    "@types/slate-react": "^0.12.3",
-    "parcel-bundler": "^1.9.7",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "parcel-bundler": "^1.11.0",
     "prettier": "^1.14.2",
     "react": "^0.14.0 || ^15.0.0 || ^16.0.0",
-    "react-dom": "^16.4.2",
-    "typescript": "^3.0.1"
+    "react-dom": "^16.4.2"
   },
   "dependencies": {
     "@hundred5/remark-cleanup": "^1.0.1",
     "@hundred5/slate-unist-serializer": "^0.1.2",
     "@types/react": "^16.4.12",
-    "@types/slate": "^0.33.4",
     "choose-files": "^1.0.1",
     "emotion": "^9.2.8",
     "immutable": "^3.8.1",
@@ -44,9 +38,7 @@
     "slate-trailing-block": "^0.5.0",
     "unified": "^7.0.0"
   },
-  "scripts": {
-    "prepublish": "tsc || true"
-  },
+  "scripts": {},
   "files": [
     "lib"
   ]
