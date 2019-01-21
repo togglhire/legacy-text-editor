@@ -1,5 +1,4 @@
 import React from "react";
-import { render } from "react-dom";
 import {
   Toolbar,
   TextEditor,
@@ -8,8 +7,9 @@ import {
   markdownToEditorState,
   editorStateToMarkdown
 } from "../src";
+import "./editor.css";
 
-class App extends React.Component {
+export class Editor extends React.Component {
   constructor(props) {
     super(props);
 
@@ -71,5 +71,3 @@ const initialEditorState = markdownToEditorState(
     "![An image](https://via.placeholder.com/350x150)"
   ].join("\n\n")
 );
-
-render(<App />, document.getElementById("app"));
