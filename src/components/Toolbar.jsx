@@ -67,6 +67,14 @@ export const Toolbar = ({ state, onChange, onInsertImage }) => (
     <RichTextButton
       state={state}
       onChange={onChange}
+      transform={transforms.toggleHeading}
+      active={transforms.isInHeading}
+    >
+      <icons.Heading />
+    </RichTextButton>
+    <RichTextButton
+      state={state}
+      onChange={onChange}
       transform={transforms.toggleLink}
       active={transforms.isInLink}
     >
