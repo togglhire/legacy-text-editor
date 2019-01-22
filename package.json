@@ -3,28 +3,27 @@
   "version": "1.0.2",
   "description": "Text editor React component for use in Hundred5 web apps",
   "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "types": "types/index.d.ts",
   "repository": "https://github.com/Hundred5/text-editor",
   "author": "Michal Miškerník <michal@miskernik.sk>",
   "license": "MIT",
   "devDependencies": {
-    "@types/is-hotkey": "^0.1.0",
-    "@types/is-url": "^1.2.28",
-    "@types/react-dom": "^16.0.7",
-    "@types/react-textarea-autosize": "^4.3.3",
-    "@types/slate-html-serializer": "^0.6.2",
-    "@types/slate-react": "^0.12.3",
-    "parcel-bundler": "^1.9.7",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/preset-react": "^7.0.0",
+    "@storybook/react": "^4.1.7",
+    "babel-loader": "^8.0.5",
     "prettier": "^1.14.2",
     "react": "^0.14.0 || ^15.0.0 || ^16.0.0",
-    "react-dom": "^16.4.2",
-    "typescript": "^3.0.1"
+    "react-dom": "^16.4.2"
   },
   "dependencies": {
     "@hundred5/remark-cleanup": "^1.0.1",
     "@hundred5/slate-unist-serializer": "^0.1.2",
-    "@types/react": "^16.4.12",
-    "@types/slate": "^0.33.4",
+    "@types/react": "^16.7.20",
     "choose-files": "^1.0.1",
     "emotion": "^9.2.8",
     "immutable": "^3.8.1",
@@ -45,9 +44,11 @@
     "unified": "^7.0.0"
   },
   "scripts": {
-    "prepublish": "tsc || true"
+    "storybook": "start-storybook",
+    "prepare": "babel src --out-dir lib"
   },
   "files": [
-    "lib"
+    "lib",
+    "types"
   ]
 }
