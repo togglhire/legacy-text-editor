@@ -27,6 +27,11 @@ const UnorderedList = styled("ul")({
   paddingLeft: 30
 });
 
+const Heading = styled("h3")({
+  marginTop: "0.5em",
+  marginBottom: "0.5em"
+});
+
 const renderNode = ({ node, attributes, children }) => {
   switch (node.type) {
     case blocks.paragraph:
@@ -43,6 +48,8 @@ const renderNode = ({ node, attributes, children }) => {
       return <UnorderedList {...attributes}>{children}</UnorderedList>;
     case blocks.listItem:
       return <li {...attributes}>{children}</li>;
+    case blocks.heading:
+      return <Heading {...attributes}>{children}</Heading>;
     case inlines.code:
       return <InlineCode {...attributes}>{children}</InlineCode>;
   }

@@ -165,6 +165,24 @@ const rules = [
     }
   },
 
+  // heading
+  {
+    serialize(node, children) {
+      if (node.object === "block" && node.type === blocks.heading) {
+        return { type: "heading", depth: 1, children };
+      }
+    },
+    deserialize(node, next) {
+      if (node.type === "heading") {
+        return {
+          object: "block",
+          type: blocks.heading,
+          nodes: node.children ? next(node.children) : []
+        };
+      }
+    }
+  },
+
   // link
   {
     serialize(node, children) {

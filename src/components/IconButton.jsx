@@ -12,6 +12,8 @@ export const IconButton = styled("button")(props => ({
     opacity: 1
   },
   "& svg": {
-    display: "block"
+    display: "block",
+    width: 16,
+    height: 16
   }
 }));

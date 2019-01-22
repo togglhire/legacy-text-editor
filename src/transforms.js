@@ -42,6 +42,16 @@ const toggleList = type => state => {
 export const toggleOrderedList = toggleList(blocks.orderedList);
 export const toggleUnorderedList = toggleList(blocks.unorderedList);
 
+export const toggleHeading = state => {
+  return changeRichTextState(state, change => {
+    if (isInHeading(state)) {
+      return change.setBlocks(blocks.paragraph);
+    } else {
+      return change.setBlocks(blocks.heading);
+    }
+  });
+};
+
 export const toggleLink = state => {
   return changeRichTextState(state, change => {
     if (linkPlugin.utils.isInLink(change.value)) {
@@ -115,6 +125,10 @@ const isInList = type => state => {
 
 export const isInOrderedList = isInList(blocks.orderedList);
 export const isInUnorderedList = isInList(blocks.unorderedList);
+
+export const isInHeading = state => {
+  return state.value.blocks.some(node => node.type === blocks.heading);
+};
 
 export const isInMarkdown = state => {
   return state.type === "raw-markdown";

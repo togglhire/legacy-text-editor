@@ -4,7 +4,8 @@ export const blocks = {
   codeLine: "code-line",
   orderedList: "ol-list",
   unorderedList: "ul-list",
-  listItem: "list-item"
+  listItem: "list-item",
+  heading: "heading"
 };
 
 export const inlines = {
