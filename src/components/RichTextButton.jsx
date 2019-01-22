@@ -6,11 +6,13 @@ export const RichTextButton = ({
   onChange,
   transform,
   active,
+  title,
   children
 }) => (
   <IconButton
     active={state.type === "rich-text" && active(state)}
     disabled={state.type !== "rich-text"}
+    title={title}
     type="button"
     onClick={() => {
       if (state.type === "rich-text") {
