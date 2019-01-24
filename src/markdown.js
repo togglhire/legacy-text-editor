@@ -32,12 +32,12 @@ const rules = [
 
   // text
   {
-    serialize(node, children) {
+    serialize(node) {
       if (node.object === "string") {
         return { type: "text", value: node.text };
       }
     },
-    deserialize(node, next) {
+    deserialize(node) {
       if (node.type === "text" && node.value != null) {
         return {
           object: "text",
@@ -90,7 +90,7 @@ const rules = [
         };
       }
     },
-    deserialize(node, next) {
+    deserialize(node) {
       if (node.type === "code" && node.value != null) {
         const lines = node.value.split("\n");
 
@@ -109,12 +109,12 @@ const rules = [
 
   // inline code
   {
-    serialize(node, children) {
+    serialize(node) {
       if (node.object === "inline" && node.type === inlines.code) {
         return { type: "inlineCode", value: node.text };
       }
     },
-    deserialize(node, next) {
+    deserialize(node) {
       if (node.type === "inlineCode" && node.value != null) {
         return {
           object: "inline",

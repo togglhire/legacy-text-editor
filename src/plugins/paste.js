@@ -1,4 +1,5 @@
 import { getEventTransfer } from "slate-react";
+import Serializer from "slate-html-serializer";
 import { blocks, marks, inlines } from "../constants";
 
 const blockTags = {
@@ -42,7 +43,7 @@ const rules = [
     }
   },
   {
-    deserialize(el, next) {
+    deserialize(el) {
       if (el.tagName.toLowerCase() == "pre" && el.textContent != null) {
         const lines = el.textContent.split(/\r\n|\n|\r/);
 
@@ -92,7 +93,7 @@ const rules = [
     }
   },
   {
-    deserialize(el, next) {
+    deserialize(el) {
       if (el.tagName.toLowerCase() == "code") {
         return {
           object: "inline",
