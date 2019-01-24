@@ -1,6 +1,6 @@
 {
   "name": "@hundred5/text-editor",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Text editor React component for use in Hundred5 web apps",
   "main": "lib/index.js",
   "types": "types/index.d.ts",
