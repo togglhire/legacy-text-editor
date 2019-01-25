@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "react-emotion";
-import { Schema } from "slate";
+import { Schema, Inline } from "slate";
 import { inlines } from "../constants";
 
 const Image = styled("img")({
