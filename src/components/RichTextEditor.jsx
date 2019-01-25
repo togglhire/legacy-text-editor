@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Editor } from "slate-react";
 import { plugins } from "../plugins";
 import styled from "react-emotion";
@@ -22,3 +23,8 @@ export const RichTextEditor = ({ state, onChange, ...props }) => (
     {...props}
   />
 );
+
+RichTextEditor.propTypes = {
+  state: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired
+};

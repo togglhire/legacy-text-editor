@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "react-emotion";
 import AutosizeTextarea from "react-textarea-autosize";
 
@@ -31,4 +32,10 @@ export const RawMarkdownEditor = props => {
       {...rest}
     />
   );
+};
+
+RawMarkdownEditor.propTypes = {
+  state: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  autoCorrect: PropTypes.bool
 };

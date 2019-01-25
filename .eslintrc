@@ -11,8 +11,5 @@
   },
   "env": {
     "browser": true
-  },
-  "rules": {
-    "react/prop-types": "warn"
   }
 }

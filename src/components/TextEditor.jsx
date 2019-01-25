@@ -1,4 +1,5 @@
-import * as React from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import { RichTextEditor } from "./RichTextEditor";
 import { RawMarkdownEditor } from "./RawMarkdownEditor";
 
@@ -10,4 +11,9 @@ export const TextEditor = ({ state, onChange, ...props }) => {
   } else {
     return null;
   }
+};
+
+TextEditor.propTypes = {
+  state: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired
 };

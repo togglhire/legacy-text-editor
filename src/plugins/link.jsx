@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "react-emotion";
 import { inlines } from "../constants";
 import isUrl from "is-url";
@@ -31,6 +32,13 @@ const LinkNode = ({ attributes, node, editor, children }) => (
     {children}
   </Link>
 );
+
+LinkNode.propTypes = {
+  attributes: PropTypes.object,
+  node: PropTypes.object.isRequired,
+  editor: PropTypes.object.isRequired,
+  children: PropTypes.node
+};
 
 const renderNode = props => {
   if (props.node.object === "inline" && props.node.type === inlines.link) {

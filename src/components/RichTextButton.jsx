@@ -1,4 +1,5 @@
-import * as React from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import { IconButton } from "./IconButton";
 
 export const RichTextButton = ({
@@ -23,3 +24,12 @@ export const RichTextButton = ({
     {children}
   </IconButton>
 );
+
+RichTextButton.propTypes = {
+  state: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  transform: PropTypes.func.isRequired,
+  active: PropTypes.func.isRequired,
+  title: PropTypes.string,
+  children: PropTypes.node
+};

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import * as icons from "../icons";
 import * as transforms from "../transforms";
 import { RichTextButton } from "./RichTextButton";
@@ -97,3 +98,9 @@ export const Toolbar = ({ state, onChange, onInsertImage }) => (
     </MarkdownButton>
   </React.Fragment>
 );
+
+Toolbar.propTypes = {
+  state: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onInsertImage: PropTypes.func.isRequired
+};

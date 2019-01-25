@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "react-emotion";
 import { Schema, Inline } from "slate";
 import { inlines } from "../constants";
@@ -42,6 +43,11 @@ const ImageNode = ({ node, isSelected }) => {
   }
 };
 
+ImageNode.propTypes = {
+  node: PropTypes.object.isRequired,
+  isSelected: PropTypes.bool.isRequired
+};
+
 const UploadNode = ({ isSelected }) => {
   return (
     <Frame selected={isSelected}>
@@ -50,6 +56,12 @@ const UploadNode = ({ isSelected }) => {
   );
 };
 
+UploadNode.propTypes = {
+  node: PropTypes.object.isRequired,
+  isSelected: PropTypes.bool.isRequired
+};
+
+/* eslint-disable react/prop-types */
 const renderNode = props => {
   switch (props.node.type) {
     case inlines.image:
@@ -58,6 +70,7 @@ const renderNode = props => {
       return <UploadNode {...props} />;
   }
 };
+/* eslint-enable react/prop-types */
 
 const emptyTextNode = {
   object: "text",

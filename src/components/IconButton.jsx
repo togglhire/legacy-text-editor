@@ -1,4 +1,5 @@
 import styled from "react-emotion";
+import PropTypes from "prop-types";
 
 export const IconButton = styled("button")(props => ({
   padding: 0,
@@ -17,3 +18,7 @@ export const IconButton = styled("button")(props => ({
     height: 16
   }
 }));
+
+IconButton.propTypes = {
+  active: PropTypes.bool
+};

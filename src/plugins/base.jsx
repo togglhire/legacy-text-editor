@@ -32,6 +32,7 @@ const Heading = styled("h3")({
   marginBottom: "0.5em"
 });
 
+/* eslint-disable react/prop-types */
 const renderNode = ({ node, attributes, children }) => {
   switch (node.type) {
     case blocks.paragraph:
@@ -65,5 +66,6 @@ const renderMark = ({ mark, attributes, children }) => {
       return <s {...attributes}>{children}</s>;
   }
 };
+/* eslint-enable react/prop-types */
 
 export const basePlugin = { renderNode, renderMark };
