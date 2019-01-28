@@ -31,26 +31,23 @@ const Frame = styled("span")(props => ({
   borderRadius: 2
 }));
 
-const ImageNode = ({ node, isSelected }) => {
-  if (node.object === "inline" && node.type === inlines.image) {
-    return (
-      <Frame selected={isSelected}>
-        <Image src={node.data.get("src")} />
-      </Frame>
-    );
-  } else {
-    return null;
-  }
+const ImageNode = ({ node, attributes, isSelected }) => {
+  return (
+    <Frame selected={isSelected} {...attributes}>
+      <Image src={node.data.get("src")} />
+    </Frame>
+  );
 };
 
 ImageNode.propTypes = {
   node: PropTypes.object.isRequired,
+  attributes: PropTypes.object.isRequired,
   isSelected: PropTypes.bool.isRequired
 };
 
-const UploadNode = ({ isSelected }) => {
+const UploadNode = ({ attributes, isSelected }) => {
   return (
-    <Frame selected={isSelected}>
+    <Frame selected={isSelected} {...attributes}>
       <Upload>Uploading...</Upload>
     </Frame>
   );
@@ -58,6 +55,7 @@ const UploadNode = ({ isSelected }) => {
 
 UploadNode.propTypes = {
   node: PropTypes.object.isRequired,
+  attributes: PropTypes.object.isRequired,
   isSelected: PropTypes.bool.isRequired
 };
 

@@ -39,8 +39,8 @@ const renderNode = ({ node, attributes, children }) => {
       return <Paragraph {...attributes}>{children}</Paragraph>;
     case blocks.code:
       return (
-        <BlockCode>
-          <code {...attributes}>{children}</code>
+        <BlockCode {...attributes}>
+          <code>{children}</code>
         </BlockCode>
       );
     case blocks.orderedList:

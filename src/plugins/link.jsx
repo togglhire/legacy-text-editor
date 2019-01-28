@@ -41,8 +41,8 @@ LinkNode.propTypes = {
 };
 
 const renderNode = props => {
-  if (props.node.object === "inline" && props.node.type === inlines.link) {
-    return <LinkNode {...props} node={props.node} />;
+  if (props.node.type === inlines.link) {
+    return <LinkNode {...props} />;
   }
 };
 
