@@ -82,7 +82,7 @@ const rules = [
 
       if (node.object === "block" && node.type === blocks.codeLine) {
         return {
-          type: "codeLine",
+          type: "text",
           value: children
             .map(child => child.value)
             .filter(text => text != null)
