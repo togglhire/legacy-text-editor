@@ -16,7 +16,8 @@ const BlockCode = styled("pre")({
 
 const InlineCode = styled("code")({
   padding: 3,
-  background: "#F5F5F5"
+  background: "#F5F5F5",
+  color: "#DD1144"
 });
 
 const OrderedList = styled("ol")({
